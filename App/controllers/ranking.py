@@ -55,7 +55,7 @@ def update_ranking(id, score):
         db.session.commit()
         return ranking
     return None
-
+###ffff
 # def delete_ranking(id):
 #     ranking = get_ranking(id)
 #     if ranking:
