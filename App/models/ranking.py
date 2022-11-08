@@ -1,6 +1,6 @@
 from App.database import db
 
-#Rankings are created by users when they rate other users' pictures
+#Rankings are created by users when they rate other users' pictures hello hello hello
 class Ranking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     creatorId =  db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
