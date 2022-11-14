@@ -77,8 +77,6 @@ class UserUnitTests(unittest.TestCase):
         user = User("bob", password)
         assert user.check_password(password)
 
-class ImageUnitTests(unittest.TestCase):
-
     def test_new_image(self):
         image = Image(1)
         assert image.rankings == []
@@ -88,7 +86,6 @@ class ImageUnitTests(unittest.TestCase):
         image_json = image.toJSON()
         self.assertDictEqual(image_json, {"id":None, "rankings":[], "userId": 1})
 
-class RatingUnitTests(unittest.TestCase):
 
     def test_new_rating(self):
         rating = Rating(1, 2, 3)
@@ -98,8 +95,6 @@ class RatingUnitTests(unittest.TestCase):
         rating = Rating(1, 2, 3)
         rating_json = rating.toJSON()
         self.assertDictEqual(rating_json, {"id":None, "creatorId":1, "targetId": 2, "score":3, "timeStamp": date.today()})
-
-class RankingUnitTests(unittest.TestCase):
 
     def test_new_ranking(self):
         ranking = Ranking(1, 2, 3)
@@ -163,8 +158,6 @@ class UsersIntegrationTests(unittest.TestCase):
         user = get_user(3)
         assert user == None
 
-class ImageIntegrationTests(unittest.TestCase):
-
     def test_create_image(self):
         image = create_image(2)
         assert image.id == 1
@@ -194,8 +187,6 @@ class ImageIntegrationTests(unittest.TestCase):
         image = get_image(image.id)
         assert image == None
 
-    
-class RatingIntegrationTests(unittest.TestCase):
 
     def test_create_rating(self):
         rating = create_rating(1, 2, 3)
@@ -240,9 +231,6 @@ class RatingIntegrationTests(unittest.TestCase):
 
     def test_get_level(self):
         assert get_level(1) == 1
-
-
-class RankingIntegrationTests(unittest.TestCase):
 
     def test_create_rating(self):
         ranking = create_ranking(1, 2, 3)
