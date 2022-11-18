@@ -8,6 +8,7 @@ class User(db.Model):
     password = db.Column(db.String(120), nullable=False)
     images = db.relationship('Image', backref='image', lazy=True, cascade="all, delete-orphan")
     ratings = db.relationship('Rating', backref='rating', lazy=True, cascade="all, delete-orphan")
+    profiles = db.relationship('UserDistributer', backref='rating', lazy=True, cascade="all, delete-orphan")
 
     def __init__(self, username, password):
         self.username = username
