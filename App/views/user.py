@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, jsonify, request, send_from_directory
-from flask_jwt import jwt_required
+from flask_jwt import jwt_required, current_identity
 
 
 from App.controllers import (
@@ -50,15 +50,6 @@ def get_user_action():
         return user.toJSON() 
     return jsonify({"message":"User Not Found"})
 
-
-# @user_views.route('/api/users/byid', methods=['GET'])
-# def get_user_action():
-#     id = request.args.get('id')
-#     user = get_user(id)
-#     if user:
-#         return user.toJSON() 
-#     return jsonify({"message":"User Not Found"})
-
 @user_views.route('/api/users', methods=['PUT'])
 def update_user_action():
     data = request.json
@@ -79,18 +70,6 @@ def delete_user_action():
 @jwt_required()
 def identify_user_action():
     return jsonify({'message': f"username: {current_identity.username}, id : {current_identity.id}"})
-
-
-@user_views.route('/auth', methods=['POST'])
-def login_user_action():
-    data = request.get_json()
-    user = authenticate(data['username'], data['password'])
-    if user:
-        login_user(user, False)
-        session["username"] = user.username
-        session["user_id"] = user.id
-        return jsonify({"message": f"{user.username} logged in"}) 
-    return jsonify({"message":"Username and password do not match"}) 
 
 @user_views.route('/api/users/level', methods=['GET'])
 def get_level_action():
