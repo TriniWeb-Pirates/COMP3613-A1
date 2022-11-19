@@ -18,3 +18,5 @@ class UserDistributer(db.Model):
             'userID': self.userID,
             'lastRequest': self.lastRequest
         }
+    def generateProfileList():
+        pass
