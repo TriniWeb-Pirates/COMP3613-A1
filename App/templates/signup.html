@@ -8,30 +8,31 @@
     <div class="contact-title">
       <h1>Welcome User</h1>
     </div>
-  
+
     <section class="request">
-    <div class="signup-Form">
-     <form id="myForm" method="POST" action="/signup">
-            {{ myForm.csrf_token }}
-            <div class="inputBox">     
-              {{ myForm.username(size=20, class="validate") }}
-               <span>User Name</span>
-            </div>
-
-            <div class="inputBox">
-              {{ myForm.password(size=20, class="validate") }}
-              <span>Password</span>   
-            </div>
-
-            <div>
-              {{myForm.submit}}
-              <a href="/login">
+      <div class="signup-Form">
+        <form id="myForm" method="POST" action="/signup">
+          {{ myForm.csrf_token }}
+          <div class="inputBox">     
+            {{ myForm.username(size=20, class="validate") }}
+            <span>User Name</span>
+          </div>
+          
+          <div class="inputBox">
+            {{ myForm.password(size=20, class="validate") }}
+            <span>Password</span>   
+          </div>
+          
+          <div>
+            {{myForm.submit}}
+            <a href="/login">
               <input class="btn"  type="button" onclick='' value="Login with existing account">
-              </a>
-            </div> 
+            </a>
+          </div> 
         </form>
       </div>
     </section>
+  
     {% endblock %}
     
 

@@ -18,6 +18,19 @@ from App.controllers import (
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
 
+@user_views.route('/signup',methods=['GET'])
+def signup():
+    return render_template('signup.html')
+
+@user_views.route('/signup',methods=['POST'])
+def signupAction():
+    data = request.form
+    user = get_user_by_username(data['username'])
+    if user:
+        return jsonify({"message":"Username Already Taken"}) 
+    user = create_user(data['username'], data['password'])
+    return jsonify({"message":"User Created"})
+ 
 
 @user_views.route('/users', methods=['GET'])
 def get_user_page():
