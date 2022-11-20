@@ -27,7 +27,7 @@ def signupAction():
     data = request.form
     user = get_user_by_username(data['username'])
     if user:
-        return jsonify({"message":"Username Already Taken"}) 
+        return jsonify({"message":"Username Already Taken"})
     user = create_user(data['username'], data['password'])
     return jsonify({"message":"User Created"})
  
