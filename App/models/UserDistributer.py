@@ -3,20 +3,21 @@ from datetime import date
 
 class UserDistributer(db.Model):
     DistributerID=db.Column(db.Integer,primary_key=True)
-    #profiles=db.Column()# Column 
+    profiles=db.Column(db.String, nullable=False)# String containing list of profiles for distributing
     userID=db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     lastRequest= db.Column(db.Date, nullable=False)
 
-    def __init__(self,userID,lastRequest):
-
+    def __init__(self,profiles,userID,lastRequest):
+        self.profiles
         self.userID = userID
         self.lastRequest = lastRequest
     
     def toJSON(self):
         return{
             'DistributerID': self.DistributerID,
+            'profiles': self.profiles,
             'userID': self.userID,
             'lastRequest': self.lastRequest
         }
-    def generateProfileList():
+    def generateProfileList(lastRequest):
         pass
