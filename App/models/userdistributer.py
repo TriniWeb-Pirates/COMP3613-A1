@@ -1,5 +1,5 @@
 from App.database import db
-from datetime import date
+import datetime
 
 class UserDistributer(db.Model):
     DistributerID=db.Column(db.Integer,primary_key=True)
@@ -7,10 +7,10 @@ class UserDistributer(db.Model):
     userID=db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     lastRequest= db.Column(db.Date, nullable=False)
 
-    def __init__(self,profiles,userID,lastRequest):
-        self.profiles
+    def __init__(self, userID):
         self.userID = userID
-        self.lastRequest = lastRequest
+        self.profiles = " "
+        self.lastRequest = None
     
     def toJSON(self):
         return{
@@ -19,5 +19,12 @@ class UserDistributer(db.Model):
             'userID': self.userID,
             'lastRequest': self.lastRequest
         }
-    def generateProfileList(lastRequest):
-        pass
+
+    def generateProfileList():
+        
+        if datetime.datetime.now() - self.lastRequest < 4: # abitrary:
+            return self.profiles
+        
+
+
+        
