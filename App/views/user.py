@@ -31,6 +31,10 @@ def signupAction():
     user = create_user(data['username'], data['password'])
     return jsonify({"message":"User Created"})
  
+@user_views.route('/login',methods=['GET'])
+def login():
+    return render_template('login.html')
+
 
 @user_views.route('/users', methods=['GET'])
 def get_user_page():
