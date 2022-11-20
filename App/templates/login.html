@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}Profile Picture Voting{% endblock %}
+{% block page %}Profile Picture Voting{% endblock %}
+{{ super() }}
+
+
+    {% block content %}
+    <div class="contact-title">
+      <h1>Welcome User</h1>
+    </div>
+
+    <div id="login">   
+      <h1>Welcome Back!</h1>
+      
+      <form action="/" method="post">
+      
+        <div class="field-wrap">
+          <label>
+            UserName<span class="req">*</span>
+          </label>
+          <input type="text" required autocomplete="off"/>
+        </div>
+      
+        <div class="field-wrap">
+          <label>
+            Password<span class="req">*</span>
+          </label>
+          <input type="password" required autocomplete="off"/>
+        </div>
+      
+        <button type="login" class="button button-block"/>Login</button>
+      
+      </form>
+
+    </div>
+  
+    {% endblock %}
+    
+
+    
+   

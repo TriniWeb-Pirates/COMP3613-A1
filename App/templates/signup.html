@@ -9,31 +9,37 @@
       <h1>Welcome User</h1>
     </div>
 
-    <section class="request">
-      <div class="signup-Form">
-        <form id="myForm" method="POST" action="/signup">
-          {{ myForm.csrf_token }}
-          <div class="inputBox">     
-            {{ myForm.username(size=20, class="validate") }}
-            <span>User Name</span>
+    <div class="tab-content">
+      <div id="signup">   
+        <h1>Sign Up</h1>
+        
+        <form action="/" method="post">
+        
+        <div class="top-row">
+          <div class="field-wrap">
+            <label>
+              UserName<span class="req">*</span>
+            </label>
+            <input type="text" required autocomplete="off" />
           </div>
-          
-          <div class="inputBox">
-            {{ myForm.password(size=20, class="validate") }}
-            <span>Password</span>   
-          </div>
-          
-          <div>
-            {{myForm.submit}}
-            <a href="/login">
-              <input class="btn"  type="button" onclick='' value="Login with existing account">
-            </a>
-          </div> 
+        
+        <div class="field-wrap">
+          <label>
+            Create Password<span class="req">*</span>
+          </label>
+          <input type="password"required autocomplete="off"/>
+        </div>
+        
+        <button type="signup" class="button button-block"/>Sign Up</button>
+        
         </form>
+
       </div>
-    </section>
-  
-    {% endblock %}
+    
+    </div>
+
+    
+  {% endblock %}
     
 
     
