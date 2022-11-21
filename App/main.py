@@ -7,9 +7,6 @@ from werkzeug.utils import secure_filename
 from werkzeug.datastructures import  FileStorage
 from datetime import timedelta
 
-
-#adas d
-
 from App.database import create_db
 
 from App.controllers import (
@@ -17,6 +14,7 @@ from App.controllers import (
 )
 
 from App.views import (
+    distributer_views,
     user_views,
     image_views,
     rating_views,
@@ -27,6 +25,7 @@ from App.views import (
 # New views must be imported and added to this list
 
 views = [
+    distributer_views,
     user_views,
     image_views,
     rating_views,

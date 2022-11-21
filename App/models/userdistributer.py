@@ -3,14 +3,14 @@ import datetime
 
 class UserDistributer(db.Model):
     DistributerID=db.Column(db.Integer,primary_key=True)
-    profiles=db.Column(db.String, nullable=False)# String containing list of profiles for distributing
+    profiles=db.Column(db.String)# String containing list of profiles for distributing
     userID=db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    lastRequest= db.Column(db.Date, nullable=False)
+    lastRequest= db.Column(db.Date)
 
     def __init__(self, userID):
         self.userID = userID
         self.profiles = " "
-        self.lastRequest = None
+        self.lastRequest = datetime.datetime.now()
     
     def toJSON(self):
         return{
@@ -20,10 +20,8 @@ class UserDistributer(db.Model):
             'lastRequest': self.lastRequest
         }
 
-    def generateProfileList():
-        
-        if datetime.datetime.now() - self.lastRequest < 4: # abitrary:
-            return self.profiles
+      
+
         
 
 
