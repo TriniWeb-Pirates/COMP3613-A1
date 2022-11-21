@@ -36,14 +36,14 @@ def generateProfileList(current_user_id):
     for x in chosen_users:
         profile_string += str(x['id']) + '_'
     
-    current_distrubuter.profile_string = profile_string
+    current_distrubuter.profiles = profile_string
     db.session.add(current_distrubuter)
     db.session.commit()
 
     return(profile_string)
 
 def get_profile_list(current_user_id):
-    profile_list = current_distrubuter = UserDistributer.query.filter_by(userID=current_user_id).first().profiles
+    profile_list = UserDistributer.query.filter_by(userID=current_user_id).first().profiles
 
     return profile_list
     
