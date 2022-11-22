@@ -40,7 +40,7 @@ def getLoginPage():
 def loginAction():
     data=request.form
     permittedUser=authenticate(data['username'], data['password'])
-    key=redirect(url_for('_default_auth_request_handler'))
+    key=redirect(url_for('_default_auth_request_handler',user=permittedUser))
     #print(key)
     return redirect(url_for('user_views.get_user_page'))
     
