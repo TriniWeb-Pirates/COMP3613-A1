@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify, request, send_from_directory
+from flask import Blueprint, render_template, jsonify, request, send_from_directory, redirect, url_for
 from flask_jwt import jwt_required, current_identity
 
 
@@ -29,7 +29,7 @@ def signupAction():
     if user:
         return jsonify({"message":"Username Already Taken"})
     user = create_user(data['username'], data['password'])
-    return jsonify({"message":"User Created"})
+    return redirect('/')
  
 @user_views.route('/login',methods=['GET'])
 def getLoginPage():
@@ -39,9 +39,14 @@ def getLoginPage():
 def loginAction():
     data=request.form
     permittedUser=authenticate(data['username'], data['password'])
+    key=redirect(url_for('_default_auth_request_handler'))
+    #print(key)
+    return redirect(url_for('user_views.get_user_page'))
+    
 
 
 @user_views.route('/users', methods=['GET'])
+@jwt_required()
 def get_user_page():
     users = get_all_users()
     return render_template('users.html', users=users)
@@ -60,6 +65,7 @@ def create_user_action():
     return jsonify({"message":"User Created"}) 
 
 @user_views.route('/api/users', methods=['GET'])
+@jwt_required()
 def get_all_users_action():
     users = get_all_users_json()
     return jsonify(users)
