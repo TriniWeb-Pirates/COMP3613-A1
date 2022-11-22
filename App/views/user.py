@@ -29,7 +29,7 @@ def signupAction():
     if user:
         return jsonify({"message":"Username Already Taken"})
     user = create_user(data['username'], data['password'])
-    return redirect('/')
+    return redirect(url_for('user_views.getLoginPage'))
  
 @user_views.route('/login',methods=['GET'])
 def getLoginPage():
