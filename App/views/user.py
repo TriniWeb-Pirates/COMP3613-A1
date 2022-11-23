@@ -42,7 +42,7 @@ def loginAction():
     permittedUser=authenticate(data['username'], data['password'])
     #login_user(permittedUser,remember=True)
     key=redirect(url_for('_default_auth_request_handler',user=permittedUser))
-    #print(key)
+    print(key)
     return redirect(url_for('user_views.get_user_page'))
     
 
