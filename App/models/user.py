@@ -1,6 +1,7 @@
 from werkzeug.security import check_password_hash, generate_password_hash
 from App.database import db
 from flask import jsonify
+from flask_login import UserMixin
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -30,3 +31,5 @@ class User(db.Model):
     def check_password(self, password):
         """Check hashed password."""
         return check_password_hash(self.password, password)
+
+    

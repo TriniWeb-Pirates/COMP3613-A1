@@ -7,7 +7,7 @@ from werkzeug.utils import secure_filename
 from werkzeug.datastructures import  FileStorage
 from datetime import timedelta
 
-from App.database import create_db
+from App.database import create_db, get_migrate
 
 from App.controllers import (
     setup_jwt
@@ -71,3 +71,13 @@ def create_app(config={}):
     setup_jwt(app)
     app.app_context().push()
     return app
+
+#app=create_app()
+#login_manager=LoginManager()#added login manager 
+#login_manager.init_app(app)#pass app to login manager
+#migrate=get_migrate(app)
+
+
+#@login_manager.user_loader
+#def get_user(id):
+#    return User.query.get(str(id))
