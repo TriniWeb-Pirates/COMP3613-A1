@@ -13,7 +13,8 @@ from App.controllers import (
     login_user,
     logout_user,
     get_level,
-    authenticate
+    authenticate,
+    identity
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
@@ -38,17 +39,19 @@ def getLoginPage():
 
 @user_views.route('/login',methods=['POST'])
 def loginAction():
-    data=request.form
-    permittedUser=authenticate(data['username'], data['password'])
+    #data=request.form
+    #permittedUser=authenticate(data['username'], data['password'])
     #login_user(permittedUser,remember=True)
-    key=redirect(url_for('_default_auth_request_handler',user=permittedUser))
-    print(key)
-    return redirect(url_for('user_views.get_user_page'))
+    #access_token=redirect(url_for('_default_auth_request_handler'))
+    #print(access_token)
+    redirect('/auth')
+    return jsonify("hi")
+    #return redirect(url_for('user_views.get_user_page'))
     
 
 
 @user_views.route('/users', methods=['GET'])
-@jwt_required()
+#@jwt_required()
 def get_user_page():
     users = get_all_users()
     return render_template('users.html', users=users)
