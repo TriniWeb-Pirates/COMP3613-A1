@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, jsonify, request, send_from_directory, redirect, url_for
+from flask_login import login_required, current_user
 from flask_jwt import jwt_required, current_identity
-
 
 from App.controllers import (
     create_user, 
@@ -30,8 +30,7 @@ def signupAction():
     if user:
         return jsonify({"message":"Username Already Taken"})
     user = create_user(data['username'], data['password'])
-    return jsonify({"message":"User Created"}) 
-    #return redirect(url_for('user_views.getLoginPage'))
+    return getLoginPage()
  
 @user_views.route('/login',methods=['GET'])
 def getLoginPage():
@@ -39,19 +38,13 @@ def getLoginPage():
 
 @user_views.route('/login',methods=['POST'])
 def loginAction():
-    #data=request.form
-    #permittedUser=authenticate(data['username'], data['password'])
-    #login_user(permittedUser,remember=True)
-    #access_token=redirect(url_for('_default_auth_request_handler'))
-    #print(access_token)
-    redirect('/auth')
-    return jsonify("hi")
-    #return redirect(url_for('user_views.get_user_page'))
+    data=request.form
+    permittedUser=authenticate(data['username'], data['password'])
+    login_user(permittedUser,remember=True)
+    return get_user_page()
     
-
-
 @user_views.route('/users', methods=['GET'])
-#@jwt_required()
+@login_required
 def get_user_page():
     users = get_all_users()
     return render_template('users.html', users=users)
@@ -70,7 +63,6 @@ def create_user_action():
     return jsonify({"message":"User Created"}) 
 
 @user_views.route('/api/users', methods=['GET'])
-@jwt_required()
 def get_all_users_action():
     users = get_all_users_json()
     return jsonify(users)

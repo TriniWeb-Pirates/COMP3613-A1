@@ -1,11 +1,12 @@
 import os
 from flask import Flask
-from flask_login import LoginManager, current_user
+from flask_login import LoginManager, current_user, login_manager
 from flask_uploads import DOCUMENTS, IMAGES, TEXT, UploadSet, configure_uploads
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import  FileStorage
 from datetime import timedelta
+from App.models import User
 
 from App.database import create_db, get_migrate
 
@@ -72,12 +73,11 @@ def create_app(config={}):
     app.app_context().push()
     return app
 
-#app=create_app()
-#login_manager=LoginManager()#added login manager 
-#login_manager.init_app(app)#pass app to login manager
-#migrate=get_migrate(app)
+app=create_app()
+login_manager=LoginManager(app)#added login manager 
+login_manager.init_app(app)#pass app to login manager
+migrate=get_migrate(app)
 
-
-#@login_manager.user_loader
-#def get_user(id):
-#    return User.query.get(str(id))
+@login_manager.user_loader
+def get_user(id):
+    return User.query.get(id)
