@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-
+from flask_login import LoginManager
 
 db = SQLAlchemy()
 
@@ -14,5 +14,7 @@ def create_db(app):
 def init_db(app):
     db.init_app(app)
 
-    
+
+
+
     

@@ -69,12 +69,13 @@ def create_app(config={}):
     configure_uploads(app, photos)
     add_views(app, views)
     create_db(app)
+    login_manager=LoginManager(app)#added login manager 
+    login_manager.init_app(app)#pass app to login manager
+    migrate=get_migrate(app)
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(user_id)
+    
     setup_jwt(app)
     app.app_context().push()
     return app
-
-#app=create_app()
-#login_manager=LoginManager(app)#added login manager 
-#login_manager.init_app(app)#pass app to login manager
-#migrate=get_migrate(app)
-
