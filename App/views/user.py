@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, jsonify, request, send_from_direct
 from flask_login import login_required, current_user
 from flask_jwt import jwt_required, current_identity
 
+
+
 from App.controllers import (
     create_user, 
     get_all_users,
@@ -31,7 +33,8 @@ def signupAction():
         return jsonify({"message":"Username Already Taken"})
     user = create_user(data['username'], data['password'])
     return getLoginPage()
- 
+
+
 @user_views.route('/login',methods=['GET'])
 def getLoginPage():
     return render_template('login.html')

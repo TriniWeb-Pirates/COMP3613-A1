@@ -73,11 +73,8 @@ def create_app(config={}):
     app.app_context().push()
     return app
 
-app=create_app()
-login_manager=LoginManager(app)#added login manager 
-login_manager.init_app(app)#pass app to login manager
-migrate=get_migrate(app)
+#app=create_app()
+#login_manager=LoginManager(app)#added login manager 
+#login_manager.init_app(app)#pass app to login manager
+#migrate=get_migrate(app)
 
-@login_manager.user_loader
-def get_user(id):
-    return User.query.get(id)
