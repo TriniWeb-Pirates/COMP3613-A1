@@ -113,3 +113,9 @@ def get_level_action():
         level = get_level(user.id)
         return jsonify({"level":f"{level}"})
     return jsonify({"message":"User Not Found"})
+
+@user_views.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return render_template("index.html")
