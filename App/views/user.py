@@ -44,7 +44,7 @@ def loginAction():
     data=request.form
     permittedUser=authenticate(data['username'], data['password'])
     login_user(permittedUser,remember=True)
-    return get_user_page()  # or can test it with the new home.html page to see how it looks
+    return render_template('home.html', permittedUser=permittedUser) # or can test it with the new home.html page to see how it looks
 
 
     
