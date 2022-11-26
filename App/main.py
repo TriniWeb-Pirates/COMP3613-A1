@@ -79,18 +79,15 @@ def create_app(config={}):
     app.app_context().push()
     return app
 
-#app=create_app()
-
-
+app=create_app()
 app=Flask(__name__)
+login_manager=LoginManager(app)#added login manager 
+login_manager.init_app(app)#pass app to login manager
+#login_manager.login_view = 'user_views'
+migrate=get_migrate(app)
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
 
 if __name__ == '__main__':
- 
- login_manager=LoginManager(app)#added login manager 
- login_manager.init_app(app)#pass app to login manager
- #login_manager.login_view = 'user_views'
- migrate=get_migrate(app)
- @login_manager.user_loader
- def load_user(user_id):
-     return User.query.get(user_id)
-app.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True)
