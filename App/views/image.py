@@ -16,17 +16,17 @@ from App.controllers import (
 image_views = Blueprint('image_views', __name__, template_folder='../templates')
 
 
-@image_views.route('/images', methods=['GET'])
+@image_views.route('/getAllImages', methods=['GET'])
 def get_image_page():
     images = get_all_images()
     return render_template('images.html', images=images)
 
-@image_views.route('/api/images', methods=['POST'])
-def create_image_action():
-    data = request.json
-    user = get_user(data['userId'])
+@image_views.route('/createImage/<userID>', methods=['POST'])
+def create_image_action(userID):
+    data = request.form
+    user = get_user(userID)
     if user:
-        image = create_image(data['userId'])
+        image = create_image(userID, data['url'])
         return jsonify({"message":"Image created"}) 
     return jsonify({"message":"User does not exist"}) 
 
@@ -35,22 +35,19 @@ def get_images_all_action():
     images = get_all_images_json()
     return jsonify(images)
 
-@image_views.route('/api/images/user', methods=['GET'])
-def get_images_by_user_action():
-    data = request.json
-    images = get_images_by_userid_json(data['userId'])
+@image_views.route('/api/images/<userID>', methods=['GET'])
+def get_images_by_user_action(userID):
+    images = get_images_by_userid_json(userID)
     return jsonify(images)
 
-@image_views.route('/api/images/id', methods=['GET'])
-def get_images_by_id_action():
-    data = request.json
-    image = get_image_json(data['id'])
+@image_views.route('/api/images/<imageID>', methods=['GET'])
+def get_images_by_id_action(imageID):
+    image = get_image_json(imageID)
     return jsonify(image)
 
-@image_views.route('/api/images', methods=['DELETE'])
-def delete_image_action():
-    data = request.json
-    if get_image(data['id']):
-        delete_image(data['id'])
+@image_views.route('/api/images/<imageID>', methods=['DELETE'])
+def delete_image_action(imageID):
+    if get_image(imageID):
+        delete_image(imageID)
         return jsonify({"message":"Image Deleted"}) 
     return jsonify({"message":"Image Not Found"}) 

@@ -1,8 +1,8 @@
 from App.models import Image
 from App.database import db
 
-def create_image(userId):
-    newImage = Image(userId=userId)
+def create_image(userId, url):
+    newImage = Image(userId=userId, url=url)
     db.session.add(newImage)
     db.session.commit()
     return newImage
