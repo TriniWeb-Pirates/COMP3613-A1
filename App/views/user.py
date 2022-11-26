@@ -44,7 +44,9 @@ def loginAction():
     data=request.form
     permittedUser=authenticate(data['username'], data['password'])
     login_user(permittedUser,remember=True)
-    return get_user_page()
+    return get_user_page()  # or can test it with the new home.html page to see how it looks
+
+
     
 @user_views.route('/users', methods=['GET'])
 @login_required
