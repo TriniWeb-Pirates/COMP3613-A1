@@ -3,9 +3,9 @@ from App.database import db
 class ProfileFeed(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     senderID =  db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    recieverID =  db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    #recieverID =  db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     seen = db.Column(db.Boolean, default=False, nullable=False)
-    distributerID = db.Column(db.Integer, db.ForeignKey('userdistributer.id'), nullable=False)
+    #distributerID = db.Column(db.Integer, db.ForeignKey('userdistributer.id'), nullable=False)
     rating =  db.Column(db.Integer, db.ForeignKey('rating.id'), default = None, nullable=True)
     
     

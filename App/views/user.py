@@ -1,6 +1,8 @@
+from flask import Flask
 from flask import Blueprint, render_template, jsonify, request, send_from_directory, redirect, url_for
-from flask_login import login_required, current_user
+from flask_login import login_required, current_user, LoginManager
 from flask_jwt import jwt_required, current_identity
+
 
 
 
@@ -20,6 +22,7 @@ from App.controllers import (
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
+
 
 @user_views.route('/signup',methods=['GET'])
 def getSignUpPage():
@@ -44,8 +47,8 @@ def loginAction():
     data=request.form
     permittedUser=authenticate(data['username'], data['password'])
     login_user(permittedUser,remember=True)
-    return render_template('home.html', permittedUser=permittedUser) # or can test it with the new home.html page to see how it looks
-
+   # return render_template('home.html', permittedUser=permittedUser) # or can test it with the new home.html page to see how it looks
+    return get_user_page()
 
     
 @user_views.route('/users', methods=['GET'])
@@ -68,6 +71,7 @@ def create_user_action():
     return jsonify({"message":"User Created"}) 
 
 @user_views.route('/api/users', methods=['GET'])
+@login_required
 def get_all_users_action():
     users = get_all_users_json()
     return jsonify(users)
