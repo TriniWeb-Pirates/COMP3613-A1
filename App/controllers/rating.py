@@ -29,6 +29,7 @@ def get_rating_by_actors(creatorId, targetId):
 
 def get_rating(id):
     rating = Rating.query.get(id)
+    
     return rating
 
 def get_all_ratings():

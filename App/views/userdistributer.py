@@ -1,5 +1,6 @@
 from flask_jwt import jwt_required, current_identity
 from flask import Blueprint, render_template, jsonify, request, send_from_directory
+from flask_login import login_required, current_user
 
 from App.controllers import (
     generateProfileList,
@@ -8,6 +9,13 @@ from App.controllers import (
 )
 
 distributer_views = Blueprint('distributer_views', __name__, template_folder='../templates')
+
+
+@distributer_views.route('/generate_profile_feeds',methods=['GET'] )
+
+def generate_profile_feeds():
+    result = generateProfileList()
+    return jsonify(result)
 
 @distributer_views.route('/createdis',methods=['GET'])
 @jwt_required()
