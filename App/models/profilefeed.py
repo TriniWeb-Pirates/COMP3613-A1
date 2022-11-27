@@ -7,15 +7,14 @@ class ProfileFeed(db.Model):
     # senderID = db.relationship('User', backref='User', lazy=True, cascade="all, delete-orphan")
     # recieverID = db.relationship('User', backref='User', lazy=True, cascade="all, delete-orphan")
 
-
-    senderID =  db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    recieverID =  db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    senderID =  db.Column(db.Integer,nullable=False)#senderID is the ID of the profile you are sending
+    recieverID =  db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)#recieverID is ID of a person who recieves the distributed profiles
 
     # sender = db.relationship("User", foreign_keys=[senderID])
     # recieverID = db.relationship("User", foreign_keys=[recieverID])
 
     seen = db.Column(db.Boolean, default=False, nullable=False)
-    #distributerID = db.Column(db.Integer, db.ForeignKey('userdistributer.id'), nullable=False)
+    distributerID = db.Column(db.Integer, db.ForeignKey('userdistributer.id'), nullable=False)
     rating =  db.Column(db.Integer, db.ForeignKey('rating.id'), default = None, nullable=True)
     
     
