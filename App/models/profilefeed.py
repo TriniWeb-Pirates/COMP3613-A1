@@ -15,7 +15,7 @@ class ProfileFeed(db.Model):
     # recieverID = db.relationship("User", foreign_keys=[recieverID])
 
     seen = db.Column(db.Boolean, default=False, nullable=False)
-    distributerID = db.Column(db.Integer, db.ForeignKey('userdistributer.id'), nullable=False)
+    #distributerID = db.Column(db.Integer, db.ForeignKey('userdistributer.id'), nullable=False)
     rating =  db.Column(db.Integer, db.ForeignKey('rating.id'), default = None, nullable=True)
     
     
