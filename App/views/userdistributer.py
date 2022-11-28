@@ -5,8 +5,8 @@ from flask_login import login_required, current_user
 from App.controllers import (
     generateProfileList,
     create_user_distributer,
-    get_profile_list,
-    getAllFeeds
+    getAllFeeds,
+    getFeed
 )
 
 distributer_views = Blueprint('distributer_views', __name__, template_folder='../templates')
@@ -33,7 +33,7 @@ def gendis():
 @distributer_views.route('/viewprofiles',methods=['GET'])
 @jwt_required()
 def view_profiles():
-    profiles = get_profile_list(current_identity.id)
+    profiles = getFeed(current_identity.id)
 
     return jsonify(profiles)
 

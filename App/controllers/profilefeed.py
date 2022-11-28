@@ -8,18 +8,26 @@ def create_profile_feed(senderID, recieverID, distributerID):
     return new_feed
 
 def commit_feed(profile_feed):
-    db.session.add(new_feed)
+    db.session.add(profile_feed)
     db.session.commit()
-    return new_feed
+    return profile_feed
 
 def getFeed(userID):
 
-    return ProfileFeed.query.filter_by(recieverID=userID)
+    user_feed =  ProfileFeed.query.filter_by(recieverID=userID)
+
+    if not user_feed:
+        return []
+    user_feed = [feed.toJSON() for feed in user_feed]
+
+    return user_feed
 
 def getAllFeeds():
     
     feeds = ProfileFeed.query.all()
+
     if not feeds:
         return []
     feeds = [feed.toJSON() for feed in feeds]
+
     return feeds
