@@ -47,13 +47,12 @@ def loginAction():
     data=request.form
     permittedUser=authenticate(data['username'], data['password'])
     login_user(permittedUser,remember=True)
-   # return render_template('home.html', permittedUser=permittedUser) # or can test it with the new home.html page to see how it looks
-    return get_user_page()
+    return get_homePage()
 
 @user_views.route('/home',methods=['GET'])
 @login_required
 def get_homePage():
-    render_template('home.html',permittedUser=current_user)
+    return render_template('home.html')
 
 @user_views.route('/users', methods=['GET'])
 @login_required
