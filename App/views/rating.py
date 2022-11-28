@@ -7,6 +7,7 @@ from App.controllers import (
     get_all_ratings,
     get_all_ratings_json,
     get_rating,
+    get_all_total_ratings,
     get_ratings_by_target,
     get_ratings_by_creator,
     get_rating_by_actors,
@@ -81,6 +82,11 @@ def update_rating_action():
 #         delete_rating(data['id'])
 #         return jsonify({"message":"Rating deleted"}) 
 #     return jsonify({"message":"Rating not found"}) 
+
+@rating_views.route('/api/ratings/all', methods=['GET'])
+def get_all_total_ratings_view():
+    result = get_all_total_ratings()
+    return (str(result))
 
 @rating_views.route('/api/ratings/calc', methods=['GET'])
 def get_calculated_rating_action():

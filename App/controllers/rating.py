@@ -1,4 +1,5 @@
 from App.models import Rating, User
+from App.controllers import user
 from App.database import db
 
 def create_rating(creatorId, targetId, score):
@@ -69,10 +70,40 @@ def get_calculated_rating(targetId):
         return total
     return None
 
+def get_all_total_ratings():
+    profiles = user.get_all_users_json()
+
+    profile_ratings = []
+
+    for profile in profiles:
+        profile_ratings.append(get_calculated_rating(profile["id"]))
+
+    return profile_ratings
+
+def get_top_profiles():
+    
+    viewing_size = 3
+
+    profile_ratings = get_all_total_ratings()
+
+    top_profiles = {}
+
+    for i in range(viewing_size):
+
+        highest_val = max(profile_ratings)
+        highest_index = profile_ratings.index(highest_val)
+        profile_ratings.pop(highest_index)
+
+        profile_value = "User " + str(highest_index + 1)
+
+        top_profiles[profile_value] = highest_val
+
+    return top_profiles
+
 def get_level(id):
     ratings = get_ratings_by_creator(id)
     if ratings:
-        level = 0;
+        level = 0
         for rating in ratings:
             level = level + 1
         return level

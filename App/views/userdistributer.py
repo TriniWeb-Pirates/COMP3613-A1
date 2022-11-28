@@ -6,6 +6,7 @@ from App.controllers import (
     generateProfileList,
     create_user_distributer,
     getAllFeeds,
+    get_top_profiles,
     getFeed
 )
 
@@ -29,6 +30,12 @@ def gendis():
     chosen_users = generateProfileList(current_identity.id)
     return jsonify(chosen_users)
 
+
+@distributer_views.route('/gettopfeeds',methods=['GET'])
+def get_top_rated_view():
+    result = get_top_profiles()
+
+    return jsonify(result)
 
 @distributer_views.route('/viewprofiles',methods=['GET'])
 @jwt_required()
