@@ -15,3 +15,11 @@ def commit_feed(profile_feed):
 def getFeed(userID):
 
     return ProfileFeed.query.filter_by(recieverID=userID)
+
+def getAllFeeds():
+    
+    feeds = ProfileFeed.query.all()
+    if not feeds:
+        return []
+    feeds = [feed.toJSON() for feed in feeds]
+    return feeds

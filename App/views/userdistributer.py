@@ -5,14 +5,14 @@ from flask_login import login_required, current_user
 from App.controllers import (
     generateProfileList,
     create_user_distributer,
-    get_profile_list
+    get_profile_list,
+    getAllFeeds
 )
 
 distributer_views = Blueprint('distributer_views', __name__, template_folder='../templates')
 
 
 @distributer_views.route('/generate_profile_feeds',methods=['GET'] )
-
 def generate_profile_feeds():
     result = generateProfileList()
     return jsonify(result)
@@ -36,3 +36,9 @@ def view_profiles():
     profiles = get_profile_list(current_identity.id)
 
     return jsonify(profiles)
+
+@distributer_views.route('/getallfeeds',methods=['GET'])
+def get_all_feeds_view():
+    result = getAllFeeds()
+
+    return jsonify(result)

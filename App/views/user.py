@@ -71,7 +71,6 @@ def create_user_action():
     return jsonify({"message":"User Created"}) 
 
 @user_views.route('/api/users', methods=['GET'])
-@login_required
 def get_all_users_action():
     users = get_all_users_json()
     return jsonify(users)
