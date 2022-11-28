@@ -14,10 +14,16 @@ def get_user_by_username(username):
     return user
 
 def get_user(id):
-    return User.query.get(id)
+    user=User.query.get(id)
+    if user==None:
+        return None
+    return user
 
 def get_all_users():
-    return User.query.all()
+    all_Users=User.query.all()
+    if all_Users==None:
+        return None
+    return all_Users
 
 def get_all_users_json():
     users = User.query.all()

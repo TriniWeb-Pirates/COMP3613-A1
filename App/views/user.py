@@ -50,50 +50,49 @@ def loginAction():
    # return render_template('home.html', permittedUser=permittedUser) # or can test it with the new home.html page to see how it looks
     return get_user_page()
 
-    
+@user_views.route('/home',methods=['GET'])
+@login_required
+def get_homePage():
+    render_template('home.html',permittedUser=current_user)
+
 @user_views.route('/users', methods=['GET'])
 @login_required
 def get_user_page():
     users = get_all_users()
+    if users==None:
+        return redirect(url_for(''))
     return render_template('users.html', users=users)
 
-@user_views.route('/static/users')
-def static_user_page():
-  return send_from_directory('static', 'static-user.html')
 
-@user_views.route('/api/users', methods=['POST'])
-def create_user_action():
-    data = request.json
-    user = get_user_by_username(data['username'])
-    if user:
-        return jsonify({"message":"Username Already Taken"}) 
-    user = create_user(data['username'], data['password'])
-    return jsonify({"message":"User Created"}) 
 
 @user_views.route('/api/users', methods=['GET'])
+@login_required
 def get_all_users_action():
     users = get_all_users_json()
     return jsonify(users)
 
 @user_views.route('/api/users/byid', methods=['GET'])
+@login_required
 def get_user_action():
-    data = request.json
+    data = request.form
     user = get_user(data['id'])
     if user:
         return user.toJSON() 
     return jsonify({"message":"User Not Found"})
 
 @user_views.route('/api/users', methods=['PUT'])
+@login_required
 def update_user_action():
-    data = request.json
+    data = request.form
     user = update_user(data['id'], data['username'])
     if user:
         return jsonify({"message":"User Updated"})
     return jsonify({"message":"User Not Found"})
 
 @user_views.route('/api/users', methods=['DELETE'])
+@login_required
 def delete_user_action():
-    data = request.json
+    data = request.form
     if get_user(data['id']):
         delete_user(data['id'])
         return jsonify({"message":"User Deleted"}) 
@@ -103,15 +102,6 @@ def delete_user_action():
 @jwt_required()
 def identify_user_action():
     return jsonify({'message': f"username: {current_identity.username}, id : {current_identity.id}"})
-
-@user_views.route('/api/users/level', methods=['GET'])
-def get_level_action():
-    data = request.json
-    user = get_user(data['userId'])
-    if user:
-        level = get_level(user.id)
-        return jsonify({"level":f"{level}"})
-    return jsonify({"message":"User Not Found"})
 
 @user_views.route("/logout")
 @login_required
