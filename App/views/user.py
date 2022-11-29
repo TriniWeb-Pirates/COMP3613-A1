@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, flash
 from flask import Blueprint, render_template, jsonify, request, send_from_directory, redirect, url_for
 from flask_login import login_required, current_user, LoginManager
 from flask_jwt import jwt_required, current_identity
@@ -42,7 +42,8 @@ def signupAction():
     data = request.form
     user = get_user_by_username(data['username'])
     if user:
-        return jsonify({"message":"Username Already Taken"})
+        flash("Username taken please try a new username")
+        return getSignUpPage()
     user = create_user(data['username'], data['password'])
     return getLoginPage()
 
@@ -55,12 +56,17 @@ def getLoginPage():
 def loginAction():
     data=request.form
     permittedUser=authenticate(data['username'], data['password'])
+    if permittedUser==None:
+        flash("Wrong Credentials, Please try again")
+        return getLoginPage()
     login_user(permittedUser,remember=True)
+    flash('You were successfully logged in!')
     return get_homePage()
 
 @user_views.route('/home',methods=['GET'])
 @login_required
 def get_homePage():
+    flash(" Welcome "+current_user.username)
     return render_template('home.html')
 
 @user_views.route('/users', methods=['GET'])

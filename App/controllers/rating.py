@@ -3,6 +3,8 @@ from App.controllers import user
 from App.database import db
 
 def create_rating(creatorId, targetId, score):
+    if score == 0:
+        return None
     newRating = Rating(creatorId=creatorId, targetId=targetId, score=score)
     db.session.add(newRating)
     db.session.commit()

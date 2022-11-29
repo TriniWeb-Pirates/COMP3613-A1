@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, jsonify, request, send_from_directory
 from flask_jwt import jwt_required
+from flask_login import current_user, login_required
 
 
 from App.controllers import (
@@ -19,18 +20,40 @@ from App.controllers import (
 rating_views = Blueprint('rating_views', __name__, template_folder='../templates')
 
 
+@rating_views.route('/addRating', methods=['POST'])
+@login_required
+def add_Rating():
+    data=request.form
+    if data['creatorId']==current_user.id:
+        if get_user(data['targetId']):
+            if data['creatorId']!=data['targetId']:
+                prev = get_rating_by_actors(data['creatorId'], data['targetId'])
+                if prev:
+                    flash("Whoops, but "+ current_user.username + " you already rated this profile")
+                    return jsonify({"message":"Current user already rated this user"})#This must be changed to return user to add rating page
+                rating = create_rating(data['creatorId'], data['targetId'], data['score'])
+                if rating!=None:
+                    flash('You just rated another profile')
+                    return jsonify({"message":"Rating created"})
+
+            flash('Invalid action, You cannot rate yourself')
+            return jsonify('Invalid action, You cannot rate yourself')
+
+        flash('Invalid action, this profile does not exist')
+        return jsonify('Invalid action, this profile does not exist')
+            
+
 @rating_views.route('/api/ratings', methods=['POST'])
+@login_required
 def create_rating_action():
     data = request.json
     if get_user(data['creatorId']) and get_user(data['targetId']):
         if data['creatorId'] != data['targetId']:
-            
             prev = get_rating_by_actors(data['creatorId'], data['targetId'])
             if prev:
                 return jsonify({"message":"Current user already rated this user"}) 
             rating = create_rating(data['creatorId'], data['targetId'], data['score'])
             return jsonify({"message":"Rating created"}) 
-
         return jsonify({"message":"User cannot rate self"})
     return jsonify({"message":"User not found"}) 
 
