@@ -96,7 +96,7 @@ def get_user_action():
 @user_views.route('/api/users', methods=['PUT'])
 #@login_required
 def update_user_action():
-    data = request.form
+    data = request.json
     user = update_user(data['id'], data['username'])
     if user:
         return jsonify({"message":"User Updated"})
@@ -105,7 +105,7 @@ def update_user_action():
 @user_views.route('/api/users', methods=['DELETE'])
 #@login_required
 def delete_user_action():
-    data = request.form
+    data = request.json
     if get_user(data['id']):
         delete_user(data['id'])
         return jsonify({"message":"User Deleted"}) 

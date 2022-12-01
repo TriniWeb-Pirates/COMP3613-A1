@@ -23,7 +23,7 @@ rating_views = Blueprint('rating_views', __name__, template_folder='../templates
 @rating_views.route('/addRating', methods=['POST'])
 #@login_required
 def add_Rating():
-    data=request.form
+    data=request.json
     if data['creatorId']==current_user.id:
         if get_user(data['targetId']):
             if data['creatorId']!=data['targetId']:
@@ -64,7 +64,7 @@ def get_all_ratings_action():
 @rating_views.route('/api/ratings/byid', methods=['GET'])
 #@login_required
 def get_rating_action():
-    data = request.form
+    data = request.json
     rating = get_rating(data['id'])
     if rating:
         return rating.toJSON()
@@ -73,7 +73,7 @@ def get_rating_action():
 @rating_views.route('/api/ratings/bycreator', methods=['GET'])
 #@login_required
 def get_rating_by_creator_action():
-    data = request.form
+    data = request.json
     if get_user(data['creatorId']):
         rating = get_ratings_by_creator(data['creatorId'])
         if rating:
@@ -83,7 +83,7 @@ def get_rating_by_creator_action():
 
 @rating_views.route('/api/ratings/bytarget', methods=['GET'])
 def get_rating_by_target_action():
-    data = request.form
+    data = request.json
     if get_user(data['targetId']):
         rating = get_ratings_by_target(data['targetId'])
         if rating:
@@ -93,7 +93,7 @@ def get_rating_by_target_action():
 
 @rating_views.route('/api/ratings', methods=['PUT'])
 def update_rating_action():
-    data = request.form
+    data = request.json
     rating = update_rating(data['id'], data['score'])
     if rating:
         return jsonify({"message":"Rating updated"})
