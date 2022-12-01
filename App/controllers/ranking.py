@@ -8,13 +8,21 @@ def create_ranking(creatorId, imageId, score):
     return newRanking
 
 def get_rankings_by_creator(creatorId):
-    return Ranking.query.filter_by(creatorId=creatorId)
+    ranking=Ranking.query.filter_by(creatorId=creatorId)
+    if ranking==None:
+        return None
+    return ranking
 
 def get_rankings_by_image(imageId):
-    return Ranking.query.filter_by(imageId=imageId)
+    ranking=Ranking.query.filter_by(imageId=imageId)
+    if ranking==None:
+        return None
+    return ranking
 
 def get_ranking(id):
     ranking = Ranking.query.get(id)
+    if ranking==None:
+        return None
     return ranking
 
 def get_all_rankings():

@@ -1,5 +1,6 @@
-from flask import Blueprint, render_template, jsonify, request, send_from_directory
+from flask import Blueprint, render_template, jsonify, request, send_from_directory, redirect, url_for
 from flask_jwt import jwt_required
+from flask_login import current_user, login_required
 
 
 from App.controllers import (
@@ -20,6 +21,7 @@ from App.controllers import (
 ranking_views = Blueprint('ranking_views', __name__, template_folder='../templates')
 
 @ranking_views.route('/api/rankings', methods=['POST'])
+@login_required
 def create_ranking_action():
     data = request.json
     if get_user(data['creatorId']) and get_image(data['imageId']):

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify, request, send_from_directory
+from flask import Blueprint, render_template, jsonify, request, send_from_directory, redirect, url_for
 from flask_jwt import jwt_required
 from flask_login import current_user, login_required
 
@@ -35,10 +35,8 @@ def add_Rating():
                 if rating!=None:
                     flash('You just rated another profile')
                     return jsonify({"message":"Rating created"})
-
             flash('Invalid action, You cannot rate yourself')
             return jsonify('Invalid action, You cannot rate yourself')
-
         flash('Invalid action, this profile does not exist')
         return jsonify('Invalid action, this profile does not exist')
             
@@ -58,21 +56,24 @@ def create_rating_action():
     return jsonify({"message":"User not found"}) 
 
 @rating_views.route('/api/ratings', methods=['GET'])
+@login_required
 def get_all_ratings_action():
     ratings = get_all_ratings_json()
     return jsonify(ratings)
 
 @rating_views.route('/api/ratings/byid', methods=['GET'])
+@login_required
 def get_rating_action():
-    data = request.json
+    data = request.form
     rating = get_rating(data['id'])
     if rating:
         return rating.toJSON()
     return jsonify({"message":"Rating not found"})
 
 @rating_views.route('/api/ratings/bycreator', methods=['GET'])
+@login_required
 def get_rating_by_creator_action():
-    data = request.json
+    data = request.form
     if get_user(data['creatorId']):
         rating = get_ratings_by_creator(data['creatorId'])
         if rating:
@@ -82,7 +83,7 @@ def get_rating_by_creator_action():
 
 @rating_views.route('/api/ratings/bytarget', methods=['GET'])
 def get_rating_by_target_action():
-    data = request.json
+    data = request.form
     if get_user(data['targetId']):
         rating = get_ratings_by_target(data['targetId'])
         if rating:
@@ -92,7 +93,7 @@ def get_rating_by_target_action():
 
 @rating_views.route('/api/ratings', methods=['PUT'])
 def update_rating_action():
-    data = request.json
+    data = request.form
     rating = update_rating(data['id'], data['score'])
     if rating:
         return jsonify({"message":"Rating updated"})
