@@ -21,7 +21,7 @@ from App.controllers import (
 ranking_views = Blueprint('ranking_views', __name__, template_folder='../templates')
 
 @ranking_views.route('/api/rankings', methods=['POST'])
-@login_required
+#@login_required
 def create_ranking_action():
     data = request.json
     if get_user(data['creatorId']) and get_image(data['imageId']):

@@ -85,7 +85,7 @@ def get_all_users_action():
     return jsonify(users)
 
 @user_views.route('/api/users/byid', methods=['GET'])
-@login_required
+#@login_required
 def get_user_action():
     data = request.form
     user = get_user(data['id'])
@@ -94,7 +94,7 @@ def get_user_action():
     return jsonify({"message":"User Not Found"})
 
 @user_views.route('/api/users', methods=['PUT'])
-@login_required
+#@login_required
 def update_user_action():
     data = request.form
     user = update_user(data['id'], data['username'])
@@ -103,7 +103,7 @@ def update_user_action():
     return jsonify({"message":"User Not Found"})
 
 @user_views.route('/api/users', methods=['DELETE'])
-@login_required
+#@login_required
 def delete_user_action():
     data = request.form
     if get_user(data['id']):

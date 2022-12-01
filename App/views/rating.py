@@ -21,7 +21,7 @@ rating_views = Blueprint('rating_views', __name__, template_folder='../templates
 
 
 @rating_views.route('/addRating', methods=['POST'])
-@login_required
+#@login_required
 def add_Rating():
     data=request.form
     if data['creatorId']==current_user.id:
@@ -42,7 +42,7 @@ def add_Rating():
             
 
 @rating_views.route('/api/ratings', methods=['POST'])
-@login_required
+#@login_required
 def create_rating_action():
     data = request.json
     if get_user(data['creatorId']) and get_user(data['targetId']):
@@ -56,13 +56,13 @@ def create_rating_action():
     return jsonify({"message":"User not found"}) 
 
 @rating_views.route('/api/ratings', methods=['GET'])
-@login_required
+#@login_required
 def get_all_ratings_action():
     ratings = get_all_ratings_json()
     return jsonify(ratings)
 
 @rating_views.route('/api/ratings/byid', methods=['GET'])
-@login_required
+#@login_required
 def get_rating_action():
     data = request.form
     rating = get_rating(data['id'])
@@ -71,7 +71,7 @@ def get_rating_action():
     return jsonify({"message":"Rating not found"})
 
 @rating_views.route('/api/ratings/bycreator', methods=['GET'])
-@login_required
+#@login_required
 def get_rating_by_creator_action():
     data = request.form
     if get_user(data['creatorId']):
