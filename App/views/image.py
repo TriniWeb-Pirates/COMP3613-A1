@@ -54,7 +54,9 @@ def viewMyImages():
 @login_required
 def remove_image(imageID):
     if get_image(imageID):
-        delete_image(imageID)
+        image=delete_image(imageID)
+        if image==None:
+            return redirect(url_for('image_views.viewMyImages'))
         return redirect(url_for('image_views.viewMyImages')) 
     return redirect(url_for('image_views.viewMyImages'))
 
