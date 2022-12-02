@@ -43,7 +43,6 @@ def create_image_action(userID):
     return jsonify({"message":"User does not exist"}) 
 
 @image_views.route('/api/images', methods=['GET'])
-@login_required
 def get_images_all_action():
     images = get_all_images_json()
     return jsonify(images)
