@@ -44,9 +44,9 @@ def getImageList():
 @login_required
 def viewMyImages():
     images=get_images_by_userid(current_user.id)
-    if images:
-        flash('You must add images to your profile to view them')
-        return redirect(url_for('image_views.image_page'))
+    #if images:
+    #    flash('You must add images to your profile to view them')
+    #    return redirect(url_for('image_views.image_page'))
     return render_template('image_listing.html',user_images=images)
 
 
