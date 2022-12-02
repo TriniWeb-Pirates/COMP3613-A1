@@ -44,10 +44,12 @@ def getImageList():
 @login_required
 def viewMyImages():
     images=get_images_by_userid(current_user.id)
+    images = [image.toJSON() for image in images]
+    print(images)
     #if images:
     #    flash('You must add images to your profile to view them')
     #    return redirect(url_for('image_views.image_page'))
-    return render_template('image_listing.html',user_images=images)
+    return render_template('image_listing.html',images=images)
 
 
 @image_views.route('/deleteImage/<imageID>', methods=['DELETE'])
