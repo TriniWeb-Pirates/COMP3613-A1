@@ -15,7 +15,7 @@ def generateProfileList():
 
     profiles = user.get_all_users_json()
 
-    if len(profiles) < viewing_size:
+    if len(profiles) < viewing_size + 1:
         return 0
 
     distributer_history = UserDistributer.query.all()
