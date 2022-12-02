@@ -64,22 +64,35 @@
 </head>
   <body>
     
-    <div id="view_images"> 
-      <div style="text-align:center">
-        <h2>Tabbed Image Gallery</h2>
-        <p>Click on the images below:</p>
+    <div id="imageListing">    
+      <div id="view_images"> 
+        <div style="text-align:center">
+          <h2>Tabbed Image Gallery</h2>
+          <p>Click on the images below:</p>
+        </div>
+        
+        <!-- to place jinja2 for loop -->
+        <section class = "row">
+          {% for image in images %}
+            <div class="col s12 m3">
+              <div class = "wrapper">
+                <div class="card medium grey">
+                  <div class = "info">
+    
+          {% endfor %}
+        </section>     
+
+        <div class="container">
+          <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+          <img id="expandedImg" style="width:100%">
+          <div id="imgtext"></div>
+        </div>
       </div>
-      
-      <!-- to place jinja2 for loop -->
+    </div>  
+    </body>
 
 
-      <div class="container">
-        <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
-        <img id="expandedImg" style="width:100%">
-        <div id="imgtext"></div>
-      </div>
-    </div>
-  </body>
+</html>
   
   {% endblock %}
 </html>  
