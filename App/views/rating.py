@@ -20,6 +20,12 @@ from App.controllers import (
 rating_views = Blueprint('rating_views', __name__, template_folder='../templates')
 
 
+@rating_views.route('/view_highest_profile',methods=['GET'])
+def view_highest_profile():
+    return render_template('.html')#put template name
+
+
+
 @rating_views.route('/addRating', methods=['POST'])
 #@login_required
 def add_Rating():

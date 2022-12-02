@@ -45,7 +45,7 @@ def signupAction():
         flash("Username taken please try a new username")
         return getSignUpPage()
     user = create_user(data['username'], data['password'])
-    return getLoginPage()
+    return redirect(url_for('user_views.getLoginPage'))
 
 
 @user_views.route('/login',methods=['GET'])

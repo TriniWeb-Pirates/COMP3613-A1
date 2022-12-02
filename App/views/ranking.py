@@ -20,6 +20,10 @@ from App.controllers import (
 
 ranking_views = Blueprint('ranking_views', __name__, template_folder='../templates')
 
+@ranking_views.route('/rank',methods=['GET'])
+def rank_page():
+    return render_template('.html')#put template name
+
 @ranking_views.route('/api/rankings', methods=['POST'])
 #@login_required
 def create_ranking_action():

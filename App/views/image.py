@@ -16,6 +16,15 @@ from App.controllers import (
 
 image_views = Blueprint('image_views', __name__, template_folder='../templates')
 
+@image_views.route('/image',methods=['GET'])
+def image_page():
+    return render_template('.html')#put template name
+
+image_views.route('/getImages', methods=['GET'])
+def getImages():
+    images = get_all_images()
+    return render_template('images.html', images=images)
+
 
 @image_views.route('/getAllImages', methods=['GET'])
 @login_required
