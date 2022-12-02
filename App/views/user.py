@@ -43,7 +43,7 @@ def signupAction():
     user = get_user_by_username(data['username'])
     if user:
         flash("Username taken please try a new username")
-        return getSignUpPage()
+        return redirect(url_for('user_views.getSignUpPage'))
     user = create_user(data['username'], data['password'])
     return redirect(url_for('user_views.getLoginPage'))
 
@@ -58,10 +58,10 @@ def loginAction():
     permittedUser=authenticate(data['username'], data['password'])
     if permittedUser==None:
         flash("Wrong Credentials, Please try again")
-        return getLoginPage()
+        return redirect(url_for('user_views.getLoginPage'))
     login_user(permittedUser,remember=True)
     flash('You were successfully logged in!')
-    return get_homePage()
+    return redirect(url_for('user_views.get_homepage'))
 
 @user_views.route('/home',methods=['GET'])
 @login_required
