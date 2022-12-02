@@ -87,7 +87,7 @@ def get_all_users_action():
 @user_views.route('/api/users/byid', methods=['GET'])
 #@login_required
 def get_user_action():
-    data = request.form
+    data = request.json
     user = get_user(data['id'])
     if user:
         return user.toJSON() 
