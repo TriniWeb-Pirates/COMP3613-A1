@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify, request, send_from_directory
+from flask import Blueprint, render_template, jsonify, request, send_from_directory, redirect, url_for, flash
 from flask_jwt import jwt_required
 from flask_login import login_required, current_user
 
@@ -11,16 +11,34 @@ from App.controllers import (
     get_image,
     get_image_json,
     delete_image,
-    get_user
+    get_user,
+    get_image_by_url
 )
 
 image_views = Blueprint('image_views', __name__, template_folder='../templates')
 
-@image_views.route('/image',methods=['GET'])
+@image_views.route('/addImage',methods=['GET'])
 def image_page():
-    return render_template('addImage.html')#put template name
+    return render_template('addImage.html')
 
-image_views.route('/getImages', methods=['GET'])
+@image_views.route('/addImage', methods=['POST'])
+#@login_required
+def add_image():
+    data = request.form
+    picture=get_image_by_url(data['url'])
+    if picture==None:
+        image = create_image(current_user.id, data['url'])
+        flash("You just added a new picture to your profile!")
+        return redirect(url_for('image_views.getImageList'))
+    flash('You already uploaded this picture')
+    return redirect(url_for('image_views.image_page'))
+
+@image_views.route('/imageListing', methods=['GET'])
+def getImageList():
+    images = get_all_images()
+    return render_template('image_listing.html', images=images)
+
+@image_views.route('/getImages', methods=['GET'])
 def getImages():
     images = get_all_images()
     return render_template('images.html', images=images)
