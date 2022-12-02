@@ -7,9 +7,8 @@ class Image(db.Model):
     rankings = db.relationship('Ranking', backref='ranking', lazy=True, cascade="all, delete-orphan")
     url = db.Column(db.String, nullable =False)
 
-    def __init__(self, userId, rankings, url):
+    def __init__(self, userId, url):
         self.userId = userId
-        self.rankings = rankings
         self.url = url
 
     def toJSON(self):

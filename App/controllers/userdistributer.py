@@ -1,7 +1,7 @@
 from App.models import User, UserDistributer, ProfileFeed
 from App.controllers import user, profilefeed
 from App.database import db
-import random
+import random, datetime
 
 def create_user_distributer(num_profiles):
     new_distributer = UserDistributer(num_profiles)
@@ -11,19 +11,26 @@ def create_user_distributer(num_profiles):
     
 def generateProfileList():
 
-    viewing_size = 5
-
-    # check if new feed are allowed to generated
-    # last_request = UserDistributer.query.all()[0].timestamp
-    
-    # if datetime.datetime.now() - last_request < 8600:
-    #     return None
+    viewing_size = 5 #size of each user's feed
 
     profiles = user.get_all_users_json()
 
-    if len(profiles) < 2:
-        return None
+    if len(profiles) < viewing_size:
+        return "Not enough users"
 
+    
+    distributer_history = UserDistributer.query.all()
+
+    if distributer_history != []:
+
+        last_request = distributer_history[-1].timestamp
+        
+        time_delta = datetime.datetime.now() - last_request
+        
+        if time_delta.total_seconds() < 8600:
+            return "Too soon to make new feeds!"
+
+    
     new_distribution = create_user_distributer(len(profiles))
 
     profiles_distributed = 0

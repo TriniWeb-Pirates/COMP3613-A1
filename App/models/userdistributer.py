@@ -8,7 +8,7 @@ class UserDistributer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     # feeds = db.relationship('Profilefeed', backref='profilefeed', lazy=True, cascade="all, delete-orphan")
     num_profiles = db.Column(db.Integer, nullable = False)
-    timestamp = db.Column(db.Date)
+    timestamp = db.Column(db.DateTime)
 
     def __init__(self, num_profiles):
         self.num_profiles = num_profiles
