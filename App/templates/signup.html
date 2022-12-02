@@ -38,6 +38,24 @@
     opacity:1;
   }
 
+  .imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
+.top-row{
+  margin-top: 3%;
+  background-color: white;
+}
+
+
+.avatar {
+  width: 30%;
+  border-radius: 50%;
+  
+  
+}
+
 </style>
 </head>
 {% extends "layout.html" %}
@@ -47,33 +65,44 @@
 
 
     {% block content %}
-    <div class="contact-title">
-      <h1>Welcome User</h1>
-    </div>
+    
 
     <div class="tab-content">
       <div id="signup">   
-        <h1>Sign Up</h1>
+        <h3 style="font-family: 'Playball', cursive;" class="center">Sign Up</h3>
+        <div style="margin-bottom:20px" class="divider #2196f3 blue"></div> 
+
+        <div class="imgcontainer">
+
+        <img class="avatar" src="static/form.png">
+
+        </div>
+
+        <h5 class="center">Create an account to get started.</h5>
+
         
         <form action="/signup" method="post">
         
         <div class="top-row">
           <div class="field-wrap">
-            <label>
-              UserName<span class="req">*</span>
+            <label style="color:black">
+              Username<span class="req">*</span>
             </label>
             <input id="username" name="username" type="text" required autocomplete="off" />
           </div>
         
         <div class="field-wrap">
-          <label>
+          <label style="color:black">
             Create Password<span class="req">*</span>
           </label>
           <input id="password" name="password" type="password"required autocomplete="off"/>
         </div>
         
-        <button type="submit" class="button button-block">Sign Up</button>
+        <button type="submit" class="button button-block #1565c0 blue darken-3">Sign Up</button>
+        
         </form>
+        <button a href="/" style="margin-top:1% ;" class="button button-block">  Go Back </button>
+        
 
       </div>
     
