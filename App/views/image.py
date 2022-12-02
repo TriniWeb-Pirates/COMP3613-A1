@@ -12,17 +12,19 @@ from App.controllers import (
     get_image_json,
     delete_image,
     get_user,
-    get_image_by_url
+    get_image_by_url,
+    get_images_by_userid
 )
 
 image_views = Blueprint('image_views', __name__, template_folder='../templates')
 
 @image_views.route('/addImage',methods=['GET'])
+@login_required
 def image_page():
     return render_template('addImage.html')
 
 @image_views.route('/addImage', methods=['POST'])
-#@login_required
+@login_required
 def add_image():
     data = request.form
     picture=get_image_by_url(data['url'])
@@ -38,6 +40,16 @@ def getImageList():
     images = get_all_images()
     return render_template('image_listing.html', images=images)
 
+@image_views.route('/viewUserImages', methods=['GET'])
+@login_required
+def viewMyImages():
+    images=get_images_by_userid(current_user.id)
+    if images:
+        flash('You must add images to your profile to view them')
+        return redirect(url_for('image_views.image_page'))
+    return render_template('image_listing.html',user_images=images)
+
+
 @image_views.route('/getImages', methods=['GET'])
 def getImages():
     images = get_all_images()
@@ -51,7 +63,7 @@ def get_image_page():
     return render_template('images.html', images=images)
 
 @image_views.route('/createImage/<userID>', methods=['POST'])
-@login_required
+#@login_required
 def create_image_action(userID):
     data = request.form
     user = get_user(userID)
