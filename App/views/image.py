@@ -18,7 +18,7 @@ image_views = Blueprint('image_views', __name__, template_folder='../templates')
 
 @image_views.route('/image',methods=['GET'])
 def image_page():
-    return render_template('.html')#put template name
+    return render_template('addImage.html')#put template name
 
 image_views.route('/getImages', methods=['GET'])
 def getImages():
