@@ -1,4 +1,5 @@
 from App.models import ProfileFeed
+from App.controllers import userdistributer
 from App.database import db
 
 def create_profile_feed(senderID, recieverID, distributerID):
@@ -17,9 +18,10 @@ def getFeed(userID):
     user_feed =  ProfileFeed.query.filter_by(recieverID=userID)
 
     if not user_feed:
-        return []
-    user_feed = [feed.toJSON() for feed in user_feed]
+        userdistributer.generateProfileList()
 
+    user_feed = [feed.toJSON() for feed in user_feed]
+        
     return user_feed
 
 def getAllFeeds():

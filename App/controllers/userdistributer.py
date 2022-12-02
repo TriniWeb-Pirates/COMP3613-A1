@@ -16,9 +16,8 @@ def generateProfileList():
     profiles = user.get_all_users_json()
 
     if len(profiles) < viewing_size:
-        return "Not enough users"
+        return (f"Not enough users to distrubute the required number of feeds ({viewing_size}).")
 
-    
     distributer_history = UserDistributer.query.all()
 
     if distributer_history != []:
