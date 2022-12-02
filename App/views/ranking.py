@@ -24,6 +24,23 @@ ranking_views = Blueprint('ranking_views', __name__, template_folder='../templat
 def rank_page():
     return render_template('.html')#put template name
 
+@ranking_views.route('/addRanking', methods=['POST'])
+#@login_required
+def add_ranking_action():
+    data = request.form
+    if get_user(data['creatorId']) and get_image(data['imageId']):
+        image = get_image(data['imageId'])
+        if data['creatorId'] != image.userId:
+
+            prev = get_ranking_by_actors(data['creatorId'], data['imageId'])
+            if prev:
+                return jsonify({"message":"Current user already ranked this image"}) 
+            ranking = create_ranking(data['creatorId'], data['imageId'], data['score'])
+            return redirect(url_for('image_views.image_page')) 
+
+        return jsonify({"message":"User cannot rank self"})
+    return jsonify({"message":"User not found"}) 
+
 @ranking_views.route('/api/rankings', methods=['POST'])
 #@login_required
 def create_ranking_action():
