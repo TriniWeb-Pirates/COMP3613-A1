@@ -50,6 +50,15 @@ def viewMyImages():
     return render_template('image_listing.html',user_images=images)
 
 
+@image_views.route('/deleteImage/<imageID>', methods=['DELETE'])
+@login_required
+def remove_image(imageID):
+    if get_image(imageID):
+        delete_image(imageID)
+        return redirect(url_for('image_views.viewMyImages')) 
+    return redirect(url_for('image_views.viewMyImages'))
+
+#Old Routes for testing
 @image_views.route('/getImages', methods=['GET'])
 def getImages():
     images = get_all_images()
