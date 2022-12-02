@@ -16,7 +16,7 @@ def generateProfileList():
     profiles = user.get_all_users_json()
 
     if len(profiles) < viewing_size:
-        return (f"Not enough users to distrubute the required number of feeds ({viewing_size}).")
+        return 0
 
     distributer_history = UserDistributer.query.all()
 
@@ -27,8 +27,7 @@ def generateProfileList():
         time_delta = datetime.datetime.now() - last_request
         
         if time_delta.total_seconds() < 8600:
-            return "Too soon to make new feeds!"
-
+            return 1
     
     new_distribution = create_user_distributer(len(profiles))
 
@@ -39,7 +38,8 @@ def generateProfileList():
     #loop through each user and create feeds for them 
 
     for profile in profiles:
-
+        #user1
+        #[1, 2, 3, 4, 5, 6,]
         current_user_id = profile["id"]
 
         potential_profiles = profiles.copy()

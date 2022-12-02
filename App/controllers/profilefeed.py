@@ -14,17 +14,8 @@ def commit_feed(profile_feed):
     return profile_feed
 
 def getFeed(userID):
-
+    
     user_feed =  ProfileFeed.query.filter_by(recieverID=userID)
-
-    if type(user_feed) is not list:
-        result = userdistributer.generateProfileList()
-
-        if result != "complete":
-            return result
-        else:
-            user_feed =  ProfileFeed.query.filter_by(recieverID=userID)
-
 
     user_feed = [feed.toJSON() for feed in user_feed]
         

@@ -40,6 +40,11 @@ def get_top_rated_view():
 @distributer_views.route('/viewprofiles',methods=['GET'])
 @jwt_required()
 def view_profiles():
+    result = generateProfileList()
+
+    if result == 0:
+        return jsonify((f"Not enough users to distrubute the required number of feeds."))
+
     profiles = getFeed(current_identity.id)
 
     return jsonify(profiles)
