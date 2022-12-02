@@ -27,20 +27,21 @@ def view_highest_profile():
 
 
 @rating_views.route('/addRating', methods=['POST'])
-#@login_required
+@login_required
 def add_Rating():
-    data=request.json
+    data=request.form
     if data['creatorId']==current_user.id:
         if get_user(data['targetId']):
             if data['creatorId']!=data['targetId']:
                 prev = get_rating_by_actors(data['creatorId'], data['targetId'])
-                if prev:
-                    flash("Whoops, but "+ current_user.username + " you already rated this profile")
-                    return jsonify({"message":"Current user already rated this user"})#This must be changed to return user to add rating page
+                if prev:#rerating profile
+                    pass
+                    #flash("Whoops, but "+ current_user.username + " you already rated this profile")
+                    #return jsonify({"message":"Current user already rated this user"})#This must be changed to return user to add rating page
                 rating = create_rating(data['creatorId'], data['targetId'], data['score'])
                 if rating!=None:
                     flash('You just rated another profile')
-                    return jsonify({"message":"Rating created"})
+                    return jsonify({"message":"Rating created"})#must be change to return user to the page where they rated from
             flash('Invalid action, You cannot rate yourself')
             return jsonify('Invalid action, You cannot rate yourself')
         flash('Invalid action, this profile does not exist')

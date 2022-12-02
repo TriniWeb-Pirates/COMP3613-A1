@@ -31,7 +31,7 @@ def add_image():
     if picture==None:
         image = create_image(current_user.id, data['url'])
         flash("You just added a new picture to your profile!")
-        return redirect(url_for('image_views.getImageList'))
+        return redirect(url_for('image_views.image_page'))
     flash('You already uploaded this picture')
     return redirect(url_for('image_views.image_page'))
 
