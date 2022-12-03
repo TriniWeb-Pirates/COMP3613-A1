@@ -28,24 +28,21 @@ def view_highest_profile():
 
 @rating_views.route('/addRating<targetId>', methods=['POST'])
 @login_required
-def add_Rating():
+def add_Rating(targetId):
     data=request.form
-    if data['creatorId']==current_user.id:
-        if get_user(data['targetId']):
-            if data['creatorId']!=data['targetId']:
-                prev = get_rating_by_actors(data['creatorId'], data['targetId'])
-                if prev:#Rerate profile
-                    rating=update_rating(prev.id, data['score'])
-                    flash('You have given the profile a new rating!')
-                    return redirect(url_for('user_views./viewUserProfile/<targetId>'))
-                rating = create_rating(data['creatorId'], data['targetId'], data['score'])#Rate profile
-                if rating!=None:
-                    flash('You just rated another profile')
-                    return redirect(url_for('user_views./viewUserProfile/<targetId>'))
-            flash('Invalid action, You cannot rate yourself')
+    if get_user(targetId):
+        #if data['creatorId']!=data['targetId']:
+        prev = get_rating_by_actors(current_user.id, targetId)
+        if prev:#Rerate profile
+            rating=update_rating(prev.id, data['score'])
+            flash('You have given the profile a new rating!')
             return redirect(url_for('user_views./viewUserProfile/<targetId>'))
-        flash('Invalid action, this profile does not exist')
-        return redirect(url_for('user_views./viewUserProfile/<targetId>'))
+        rating = create_rating(current_user.id, targetId, data['score'])#Rate profile
+        if rating!=None:
+            flash('You just rated another profile')
+            return redirect(url_for('user_views./viewUserProfile/<targetId>'))
+        #    flash('Invalid action, You cannot rate yourself')
+        #    return redirect(url_for('user_views./viewUserProfile/<targetId>'))
             
 
 @rating_views.route('/api/ratings', methods=['POST'])
