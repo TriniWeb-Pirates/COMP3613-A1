@@ -53,7 +53,7 @@ def get_sorted_images(userId):
 
     unpaired_tuples = zip(*sorted_lists)
 
-    rankings, images = [list(pair) for pair in unpaired_tuples]
+    rankings, images = [pair for pair in unpaired_tuples]
     
     return rankings, images
     
