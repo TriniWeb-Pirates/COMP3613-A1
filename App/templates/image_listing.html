@@ -75,7 +75,9 @@
                   <div class="card medium grey">
                     <div class = "info">
                       <p>Ranking: </p>{{ image.rankings }}
-                      <p>Image: </p>{{ image.url }}
+                      {% set url = image.url | string() %}
+
+                       <img src="{{url}}">
                   </div>
                 </div>
                 </div>
