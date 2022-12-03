@@ -20,7 +20,8 @@ from App.controllers import (
     authenticate,
     identity,
     get_images_by_userid,
-    get_ratings_by_creator
+    get_ratings_by_creator,
+    get_calculated_rating
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
@@ -80,24 +81,24 @@ def get_user_page():
     return render_template('users.html', users=users)
 
 
-
-@user_views.route('/api/users', methods=['GET'])
-def get_all_users_action():
-    users = get_all_users_json()
-    return jsonify(users)
-
 @user_views.route('/viewUserProfile/<userId>', methods=['GET'])
 @login_required
 def viewProfile(userId):
     user=get_user(userId)
     images=get_images_by_userid(userId)
-    rating_info=get_ratings_by_creator(userId)
     images = [image.toJSON() for image in images]
+    #rating_info=get_ratings_by_creator(userId)
+    total_rating=get_calculated_rating(userId)
     if user:
-        return render_template('profilePage.html',user=user,images=images,rating_info=rating_info)
+        return render_template('profilePage.html',user=user,images=images,rating_info=total_rating)
     return redirect(url_for('distributer_views.view_profiles_again'))
 
 
+
+@user_views.route('/api/users', methods=['GET'])
+def get_all_users_action():
+    users = get_all_users_json()
+    return jsonify(users)
 #Old Code
 @user_views.route('/api/users/byid', methods=['GET'])
 #@login_required
