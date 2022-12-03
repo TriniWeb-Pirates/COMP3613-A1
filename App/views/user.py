@@ -61,7 +61,7 @@ def loginAction():
         return redirect(url_for('user_views.getLoginPage'))
     login_user(permittedUser,remember=True)
     flash('You were successfully logged in!')
-    return redirect(url_for('user_views.get_homePage'))
+    return redirect(url_for('distributer_views.view_profiles_again'))
 
 @user_views.route('/home',methods=['GET'])
 @login_required

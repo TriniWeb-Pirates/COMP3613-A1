@@ -37,7 +37,7 @@ def get_top_rated_view():
 
     return jsonify(result)
 
-@distributer_views.route('/viewprofiles',methods=['GET'])
+@distributer_views.route('/api/viewprofiles',methods=['GET'])
 @jwt_required()
 def view_profiles():
     result = generateProfileList()
@@ -48,6 +48,20 @@ def view_profiles():
     profiles = getFeed(current_identity.id)
 
     return jsonify(profiles)
+
+    #route to be used for home page to generate the profiles
+
+@distributer_views.route('/viewprofiles',methods=['GET'])
+@login_required
+def view_profiles_again():
+    result = generateProfileList()
+
+    if result == 0:
+        return jsonify((f"Not enough users to distrubute the required number of feeds."))
+
+    profiles = getFeed(current_user.id)
+
+    return render_template('home.html', profiles=profiles)
 
 @distributer_views.route('/getallfeeds',methods=['GET'])
 def get_all_feeds_view():

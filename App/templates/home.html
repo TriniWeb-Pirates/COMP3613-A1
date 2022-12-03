@@ -6,6 +6,18 @@
 
     {% block content %}
 
+    <style>
+      .container{
+        margin: 0 auto;
+        max-width: 1280px;
+        width: 80%;
+      }
+
+      body{
+        background-color: #1651a4 ;
+      }
+    </style>
+
     <div class="row">
         <div class="col s3">
           <div class="card">
@@ -25,9 +37,40 @@
         </div>
 
         <div class="col s9">
-          <h3 style="font-family: 'Playball', cursive" class="center"> Home</h3>
-          <div style="margin-bottom:20px" class="divider #2196f3 blue"></div> 
+          <h3 style="font-family: 'Playball', cursive; color:white " class="center"> Home</h3>
+          <div style="margin-bottom:20px;" class="divider"></div> 
+          <div class="row">
+
+            
+            {% for profile in profiles %}
+            <!--card code to be repeated goes here-->
+            <div class="col s4">
+              <div class="card #039be5 light-blue darken-1">
+                <div class="card-content white-text">
+                  <span class="card-title center">User ID # {{profile.senderID}}</span>
+                 
+                </div>
+                <div style="background-color: white"class="card-action center">
+                  <a class="#039be5 light-blue darken-1 waves-effect waves-light btn"><i class="material-icons right">arrow_forward</i>View Profile</a>
+                  
+                </div>
+              </div>
+            </div>
+
+            {% endfor %}
+
+           
+
+
+
+          </div>
         </div>
+
+       
+
+
+
+
       </div>
 
    
