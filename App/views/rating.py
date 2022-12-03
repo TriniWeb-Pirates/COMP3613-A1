@@ -29,15 +29,16 @@ def view_highest_profile():
 @rating_views.route('/addRating<targetId>', methods=['POST'])
 @login_required
 def add_Rating(targetId):
-    data=request.form
+    value=request.form
+    data=int(value['score'])
     if get_user(targetId):
         #if data['creatorId']!=data['targetId']:
         prev = get_rating_by_actors(current_user.id, targetId)
         if prev:#Rerate profile
-            rating=update_rating(prev.id, data['score'])
+            rating=update_rating(prev.id, data)
             flash('You have given the profile a new rating!')
             return redirect(url_for('user_views./viewUserProfile/<targetId>'))
-        rating = create_rating(current_user.id, targetId, data['score'])#Rate profile
+        rating = create_rating(current_user.id, targetId, data)#Rate profile
         if rating!=None:
             flash('You just rated another profile')
             return redirect(url_for('user_views./viewUserProfile/<targetId>'))
