@@ -2,12 +2,7 @@
 <html>
 <head>
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      {% extends "layout.html" %}
-      {% block title %}Profile Picture Voting{% endblock %}
-      {% block page %}Profile Picture Voting{% endblock %}
-      {{ super() }}
 
-      {% block content %}
       <style>
         * {
           box-sizing: border-box;
@@ -61,7 +56,6 @@
           cursor: pointer;
         }
       </style>
-      
 </head>
 
     <body>  
@@ -80,7 +74,7 @@
                 <div class = "wrapper">
                   <div class="card medium grey">
                     <div class = "info">
-                      <p>Rankings: </p>{{ image.rankings }}
+                      <p>Ranking: </p>{{ image.rankings }}
                       <p>Image: </p>{{ image.url }}
                   </div>
                 </div>
@@ -101,4 +95,3 @@
 
     
 </html>
-{% endblock %}
