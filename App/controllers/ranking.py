@@ -55,6 +55,12 @@ def get_ranking_by_actors(creatorId, imageId):
         return ranking
     return None
 
+def get_ranking_by_user(creatorId,score):
+    if Ranking.query.get(creatorId):
+        ranking = Ranking.query.filter_by(creatorId=creatorId, score=score).first()
+        return ranking
+    return None
+
 def update_ranking(id, score):
     ranking = get_ranking(id)
     if ranking:

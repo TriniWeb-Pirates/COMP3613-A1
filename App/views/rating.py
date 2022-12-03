@@ -34,11 +34,11 @@ def add_Rating():
         if get_user(data['targetId']):
             if data['creatorId']!=data['targetId']:
                 prev = get_rating_by_actors(data['creatorId'], data['targetId'])
-                if prev:
+                if prev:#Rerate profile
                     rating=update_rating(prev.id, data['score'])
                     flash('You have given the profile a new rating!')
                     return redirect(url_for(''))
-                rating = create_rating(data['creatorId'], data['targetId'], data['score'])
+                rating = create_rating(data['creatorId'], data['targetId'], data['score'])#Rate profile
                 if rating!=None:
                     flash('You just rated another profile')
                     return redirect(url_for(''))

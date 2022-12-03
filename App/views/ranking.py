@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify, request, send_from_directory, redirect, url_for
+from flask import Blueprint, render_template, jsonify, request, send_from_directory, redirect, url_for, flash
 from flask_jwt import jwt_required
 from flask_login import current_user, login_required
 
@@ -15,7 +15,8 @@ from App.controllers import (
     update_ranking,
     #delete_ranking,
     get_user,
-    get_image
+    get_image,
+    get_ranking_by_user
 )
 
 ranking_views = Blueprint('ranking_views', __name__, template_folder='../templates')
@@ -28,18 +29,13 @@ def rank_page():
 @login_required
 def add_ranking_action():
     data = request.form
-    if data['creatorId']==current_user.id:
-        if get_image(data['imageId']):
-            prev = get_ranking_by_actors(data['creatorId'], data['imageId'])
-            if prev:
-                rating=update_ranking(prev.id, data['score'])
-                flash('You have given the picture a new ranking!')
-                return redirect(url_for(''))
-            ranking = create_ranking(data['creatorId'], data['imageId'], data['score'])
-            if ranking!=None:
-                    flash('You just ranked a picture')
-                    return redirect(url_for(''))
-        flash('Invalid action, this picture does not exist')#might need to be removed
+    for image in data:
+        if current_user.id!=image['userId']:
+            prev=get_ranking_by_user(current_user.id,image['rank'])
+            if prev==None:
+                ranking=create_ranking(current_user.id, image['id'], image['rank'])#add a ranking to each image
+            return redirect(url_for(''))#return user to ranking page because user cannot put the same rank for more than 1 image
+        flash('Sorry but you cannot rank your own images')
         return redirect(url_for(''))
 
 
