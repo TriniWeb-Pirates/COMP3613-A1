@@ -40,7 +40,13 @@
           <h3 style="font-family: 'Playball', cursive; color:white " class="center"> Home</h3>
           <div style="margin-bottom:20px;" class="divider"></div> 
           <div class="row">
+          
+            {% if value==0 %}
 
+            <h5 class="center" style="margin-top:5%; color:white">Please add five or more users to view the Profile Feed.
+            </h5>
+
+            {% else %}
             
             {% for profile in profiles %}
             <!--card code to be repeated goes here-->
@@ -58,6 +64,8 @@
             </div>
 
             {% endfor %}
+
+            {% endif %}
 
            
 

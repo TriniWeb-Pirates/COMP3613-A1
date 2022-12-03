@@ -56,12 +56,16 @@ def view_profiles():
 def view_profiles_again():
     result = generateProfileList()
 
-    if result == 0:
-        return jsonify((f"Not enough users to distrubute the required number of feeds."))
+    if result==0:
+        #return jsonify((f"Not enough users to distrubute the required number of feeds."))
+        value=0
+        return render_template('home.html', profiles=None, value=value)
+
 
     profiles = getFeed(current_user.id)
+    value=1
+    return render_template('home.html', profiles=profiles, value=value)
 
-    return render_template('home.html', profiles=profiles)
 
 @distributer_views.route('/getallfeeds',methods=['GET'])
 def get_all_feeds_view():
