@@ -34,18 +34,18 @@ def add_Rating():
         if get_user(data['targetId']):
             if data['creatorId']!=data['targetId']:
                 prev = get_rating_by_actors(data['creatorId'], data['targetId'])
-                if prev:#rerating profile
-                    pass
-                    #flash("Whoops, but "+ current_user.username + " you already rated this profile")
-                    #return jsonify({"message":"Current user already rated this user"})#This must be changed to return user to add rating page
+                if prev:
+                    rating=update_rating(prev.id, data['score'])
+                    flash('You have given the profile a new rating!')
+                    return redirect(url_for(''))
                 rating = create_rating(data['creatorId'], data['targetId'], data['score'])
                 if rating!=None:
                     flash('You just rated another profile')
-                    return jsonify({"message":"Rating created"})#must be change to return user to the page where they rated from
+                    return redirect(url_for(''))
             flash('Invalid action, You cannot rate yourself')
-            return jsonify('Invalid action, You cannot rate yourself')
+            return redirect(url_for(''))
         flash('Invalid action, this profile does not exist')
-        return jsonify('Invalid action, this profile does not exist')
+        return redirect(url_for(''))
             
 
 @rating_views.route('/api/ratings', methods=['POST'])

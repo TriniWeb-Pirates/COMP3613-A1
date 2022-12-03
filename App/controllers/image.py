@@ -10,8 +10,8 @@ def create_image(userId, url):
 def get_image(id):
     return Image.query.get(id)
 
-def get_image_by_url(url):
-    picture=Image.query.filter_by(url=url).first()
+def get_image_by_url(userId,url):
+    picture=Image.query.filter_by(userId=userId,url=url).first()
     if picture==None:
         return None
     return picture

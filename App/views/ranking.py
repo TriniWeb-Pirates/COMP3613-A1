@@ -25,21 +25,23 @@ def rank_page():
     return render_template('.html')#put template name
 
 @ranking_views.route('/addRanking', methods=['POST'])
-#@login_required
+@login_required
 def add_ranking_action():
     data = request.form
-    if get_user(data['creatorId']) and get_image(data['imageId']):
-        image = get_image(data['imageId'])
-        if data['creatorId'] != image.userId:
-
+    if data['creatorId']==current_user.id:
+        if get_image(data['imageId']):
             prev = get_ranking_by_actors(data['creatorId'], data['imageId'])
             if prev:
-                return jsonify({"message":"Current user already ranked this image"}) 
+                rating=update_ranking(prev.id, data['score'])
+                flash('You have given the picture a new ranking!')
+                return redirect(url_for(''))
             ranking = create_ranking(data['creatorId'], data['imageId'], data['score'])
-            return redirect(url_for('image_views.image_page')) 
+            if ranking!=None:
+                    flash('You just ranked a picture')
+                    return redirect(url_for(''))
+        flash('Invalid action, this picture does not exist')#might need to be removed
+        return redirect(url_for(''))
 
-        return jsonify({"message":"User cannot rank self"})
-    return jsonify({"message":"User not found"}) 
 
 @ranking_views.route('/api/rankings', methods=['POST'])
 #@login_required

@@ -27,7 +27,7 @@ def image_page():
 @login_required
 def add_image():
     data = request.form
-    picture=get_image_by_url(data['url'])
+    picture=get_image_by_url(current_user.id,data['url'])
     if picture==None:
         image = create_image(current_user.id, data['url'])
         flash("You just added a new picture to your profile!")
