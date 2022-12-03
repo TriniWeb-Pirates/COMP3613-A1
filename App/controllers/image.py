@@ -39,20 +39,24 @@ def get_sorted_images(userId):
     images = Image.query.filter_by(userId=userId)
     if not images:
         return []
-    images = [image.toJSON() for image in images]
 
     rankings = []
 
     for image in images:
-        rankings.append(ranking.get_calculated_ranking(image['id']))
+        rankings.append(ranking.get_calculated_ranking(image.id))
 
+    print(rankings)
+    
     paired_lists = zip(rankings, images)
-    sorted_lists = sorted(paired_lists, reverse=True)
+
+    sorted_lists = sorted(paired_lists, reverse=True,  key = lambda x: x[0])
 
     unpaired_tuples = zip(*sorted_lists)
 
-    print(unpaired_tuples)
-
+    rankings, images = [list(pair) for pair in unpaired_tuples]
+    
+    return rankings, images
+    
 def get_all_images():
     return Image.query.all()
 
