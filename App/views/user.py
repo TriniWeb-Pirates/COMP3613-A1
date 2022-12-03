@@ -19,7 +19,8 @@ from App.controllers import (
     get_level,
     authenticate,
     identity,
-    get_images_by_userid
+    get_images_by_userid,
+    get_ratings_by_creator
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
