@@ -78,7 +78,7 @@ def get_image_page():
 @image_views.route('/createImage/<userID>', methods=['POST'])
 #@login_required
 def create_image_action(userID):
-    data = request.form
+    data = request.json
     user = get_user(userID)
     if user:
         image = create_image(userID, data['url'])
