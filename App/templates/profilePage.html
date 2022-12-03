@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block title %}Profile Picture Voting{% endblock %}
+{% block page %}Profile Picture Voting{% endblock %}
+{{ super() }}
+
+
+    {% block content %}
+
+    <style>
+    body{
+        background-color: #1651a4 ;
+      }
+    </style>
+
+<div class="row">
+<div style="margin-top:3%" class="col s4 offset-s4">
+    <div class="card #039be5 light-blue darken-1">
+      <div class="card-content white-text">
+        <span class="card-title center">{{user.username}} ID # {{user.id}}</span>
+       
+      </div>
+      
+      <div style="background-color: white"class="card-action center">
+        <a  class="#039be5 light-blue darken-1 waves-effect waves-light btn"><i class="material-icons right">arrow_forward</i>View Profile</a>
+        
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+
+    {% endblock %}
