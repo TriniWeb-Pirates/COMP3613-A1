@@ -13,20 +13,25 @@
     </style>
 
 <div class="row">
-<div style="margin-top:3%" class="col s4 offset-s4">
-    <div class="card #039be5 light-blue darken-1">
-      <div class="card-content white-text">
+<div style="margin-top:3%;" class="col s6 offset-s3">
+    <div class="card">
+      <div class="card-content #039be5 light-blue darken-1 white-text">
         <span class="card-title center">{{user.username}} ID # {{user.id}}</span>
     </div>
 
-        <div class="card-image white">
+    <div class="row">
+        <div class="col s4 offset-s4">
+        <div class="card-image">
             <img src="/static/profile.png"  ;>
         </div>
+        </div>
+    </div>
        
       
       
       <div style="background-color: white"class="card-action center">
-        <a  class="#039be5 light-blue darken-1 waves-effect waves-light btn"><i class="material-icons right">arrow_forward</i>View Profile</a>
+        
+        <h5>Current Average Profile Rating: {{rating_info}}</h5>
         
       </div>
     </div>
