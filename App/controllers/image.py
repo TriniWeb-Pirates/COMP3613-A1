@@ -1,4 +1,5 @@
 from App.models import Image
+from App.controllers import ranking
 from App.database import db
 
 def create_image(userId, url):
@@ -33,6 +34,24 @@ def get_images_by_userid_json(userId):
         return []
     images = [image.toJSON() for image in images]
     return images
+
+def get_sorted_images(userId):
+    images = Image.query.filter_by(userId=userId)
+    if not images:
+        return []
+    images = [image.toJSON() for image in images]
+
+    rankings = []
+
+    for image in images:
+        rankings.append(ranking.get_calculated_ranking(image['id']))
+
+    paired_lists = zip(rankings, images)
+    sorted_lists = sorted(paired_lists, reverse=True)
+
+    unpaired_tuples = zip(*sorted_lists)
+
+    print(unpaired_tuples)
 
 def get_all_images():
     return Image.query.all()

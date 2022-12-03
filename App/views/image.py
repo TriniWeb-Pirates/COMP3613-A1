@@ -90,6 +90,15 @@ def get_images_all_action():
     images = get_all_images_json()
     return jsonify(images)
 
+@image_views.route('/api/createimage', method=['POST'])
+def create_image_api():
+    data = request.json
+    user_id = get_user(data['userID'])
+    if user:
+        image = create_image(user_id, "https://i.pinimg.com/originals/87/ce/b3/87ceb3d113d6bc156436be6b9e594c56.jpg")
+        return jsonify({"message":"Image created"}) 
+    return jsonify({"message":"User does not exist"}) 
+
 @image_views.route('/api/images/<userID>', methods=['GET'])
 @login_required
 def get_images_by_user_action(userID):
