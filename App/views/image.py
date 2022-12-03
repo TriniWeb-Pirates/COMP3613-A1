@@ -90,7 +90,7 @@ def get_images_all_action():
     images = get_all_images_json()
     return jsonify(images)
 
-@image_views.route('/api/createimage', method=['POST'])
+@image_views.route('/api/createimage', methods=['POST'])
 def create_image_api():
     data = request.json
     user_id = get_user(data['userID'])
