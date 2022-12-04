@@ -21,7 +21,8 @@ from App.controllers import (
     identity,
     get_images_by_userid,
     get_ratings_by_creator,
-    get_calculated_rating
+    get_calculated_rating,
+    get_user_image_count
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
@@ -88,9 +89,10 @@ def viewProfile(userId):
     images=get_images_by_userid(userId)
     images = [image.toJSON() for image in images]
     #rating_info=get_ratings_by_creator(userId)
+    values=get_user_image_count(userId)
     total_rating=get_calculated_rating(userId)
     if user:
-        return render_template('profilePage.html',user=user,images=images,rating_info=total_rating)
+        return render_template('profilePage.html',user=user,images=images,rating_info=total_rating,values=values)
     return redirect(url_for('distributer_views.view_profiles_again'))
 
 

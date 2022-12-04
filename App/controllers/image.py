@@ -27,6 +27,12 @@ def get_image_json(id):
 def get_images_by_userid(userId):
     return Image.query.filter_by(userId=userId).all()
     
+def get_user_image_count(userId):
+    images=Image.query.filter_by(userId=userId).all()
+    count=0
+    for image in images:
+        count=count+1
+    return count
 
 def get_images_by_userid_json(userId):
     images = Image.query.filter_by(userId=userId)

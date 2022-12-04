@@ -114,26 +114,29 @@ class="white-text center">{{user.username}}'s Image Gallery</h3>
 
   <p>
     
+    <form action="/addRanking/{{user.id}}" method="post">
+
+      {% set values=images %}
+      
+      {% for value in values %}
+      
+      <label>
+        <input class="with-gap" name="{{image.id}}" type="radio" value="{{value.id}}"  />
+        <span>{{value.id}}</span>
+      </label>
+      
+      {% endfor %}
+      
+    </p>
     
-    {% set values=images %}
-
-    {% for value in values %}
-
-    <label>
-      <input class="with-gap" name="group{{image.id}}" type="radio" value="{{value.id}}"  />
-      <span>{{value.id}}</span>
-    </label>
-
-  {% endfor %}
-  
-  </p>
-
-  <div class="card-action">
-    <button class="#039be5 light-blue darken-1 waves-effect waves-light btn" type="submit" name="action">Add Ranking</button>
-    
+      <div class="card-action">
+        <button class="#039be5 light-blue darken-1 waves-effect waves-light btn" type="submit">Add Ranking</button>
+        
+        
+        
+      </div>
     
   </div>
-</div>
 </div>
 
 </div>
@@ -145,9 +148,10 @@ class="white-text center">{{user.username}}'s Image Gallery</h3>
 {% endfor %}
 
 <div class="center">
-<button class="green waves-effect waves-light btn" type="submit" name="action">Submit Final Ranking</button>
+  <button class="green waves-effect waves-light btn" type="submit">Submit Final Ranking</button>
 </div>
 <br>
+</form>
 
 
 
