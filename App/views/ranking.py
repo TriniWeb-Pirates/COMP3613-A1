@@ -25,20 +25,22 @@ ranking_views = Blueprint('ranking_views', __name__, template_folder='../templat
 def rank_page():
     return render_template('.html')#put template name
 
-@ranking_views.route('/addRanking/<targetId>/<id>', methods=['POST'])
+@ranking_views.route('/addRanking/<targetId>', methods=['POST'])
 @login_required
 def add_ranking_action(targetId,id):
     data = request.form
-    #data=int(value['score'])
-    #print(data['score'])
-    #for image in data:
-    prev=get_ranking_by_user(current_user.id,int(data['score']))
-    if prev==None:
-        ranking=create_ranking(current_user.id, id, int(data['score']))#add a ranking to each image
-        print(ranking.toJSON())
-        flash('You have successfully ranked an image')
-        return redirect(url_for('user_views.viewProfile',userId=targetId))
-    flash('You already ranked another picture with that rank')
+    
+    values=[]
+    for image,ranking in data.items():
+        if ranking not in values:
+            values.append(ranking) 
+        else:
+            flash('You can not have duplicate ranks')
+            return redirect(url_for('user_views.viewProfile',userId=targetId))
+
+    for image,ranking in data.items():
+        ranking=create_ranking(current_user.id, image, ranking)
+    flash('You have successfully ranked an image')
     return redirect(url_for('user_views.viewProfile',userId=targetId))
 
 @ranking_views.route('/api/rankings', methods=['POST'])
