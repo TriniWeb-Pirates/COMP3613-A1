@@ -63,15 +63,26 @@ def update_rating(id, score):
 #     return None
 
 def get_calculated_rating(targetId):
-    ratings = Rating.query.filter_by(targetId=targetId)
+    ratings = Rating.query.filter_by(targetId=targetId).all()
     total = 0
+
+    x=0
+
     if ratings:
         for rating in ratings:
             total = total + rating.score
-        if ratings.count() != 0:
-            total = total / ratings.count()
-        return total
-    return None
+            x = x + 1
+        
+        if(x!=0):
+            avg = total/x
+            print(avg)
+            return avg
+
+        return None
+        
+
+  
+        
 
 def get_all_total_ratings():
     profiles = user.get_all_users_json()

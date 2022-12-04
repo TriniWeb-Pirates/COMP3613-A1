@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify, request, send_from_directory, redirect, url_for
+from flask import Blueprint, render_template, jsonify, request, send_from_directory, redirect, url_for, flash
 from flask_jwt import jwt_required
 from flask_login import current_user, login_required
 
@@ -26,7 +26,7 @@ def view_highest_profile():
 
 
 
-@rating_views.route('/addRating<targetId>', methods=['POST'])
+@rating_views.route('/addRating/<targetId>', methods=['POST'])
 @login_required
 def add_Rating(targetId):
     value=request.form
@@ -37,11 +37,12 @@ def add_Rating(targetId):
         if prev:#Rerate profile
             rating=update_rating(prev.id, data)
             flash('You have given the profile a new rating!')
-            return redirect(url_for('user_views./viewUserProfile/<targetId>'))
+            #return redirect(url_for('user_views.viewProfile'), userId=targetId)
+            return redirect('/viewUserProfile/<targetId>')
         rating = create_rating(current_user.id, targetId, data)#Rate profile
         if rating!=None:
             flash('You just rated another profile')
-            return redirect(url_for('user_views./viewUserProfile/<targetId>'))
+            return redirect('/viewUserProfile/<targetId>')
         #    flash('Invalid action, You cannot rate yourself')
         #    return redirect(url_for('user_views./viewUserProfile/<targetId>'))
             
