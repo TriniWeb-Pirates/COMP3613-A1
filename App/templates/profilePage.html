@@ -98,6 +98,57 @@
 </div>  <!--end row-->
 
 
+<h3 style="font-family: 'Playball', cursive; padding-bottom: 2%;" 
+class="white-text center">{{user.username}}'s Image Gallery</h3>
+
+
+{% for image in images %}
+
+<div class="row center">
+  <div class="col s10 offset-s1">
+<div class="card">
+  <div class="card-image">
+    <img src="{{image.url}}">
+  
+  </div>
+
+  <p>
+    
+    
+    {% set values=images %}
+
+    {% for value in values %}
+
+    <label>
+      <input class="with-gap" name="group{{image.id}}" type="radio" value="{{value.id}}"  />
+      <span>{{value.id}}</span>
+    </label>
+
+  {% endfor %}
+  
+  </p>
+
+  <div class="card-action">
+    <button class="#039be5 light-blue darken-1 waves-effect waves-light btn" type="submit" name="action">Add Ranking</button>
+    
+    
+  </div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+{% endfor %}
+
+<div class="center">
+<button class="green waves-effect waves-light btn" type="submit" name="action">Submit Final Ranking</button>
+</div>
+<br>
+
 
 
 
