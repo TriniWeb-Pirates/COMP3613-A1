@@ -9,6 +9,7 @@ from flask_jwt import jwt_required, current_identity
 from App.controllers import (
     create_user, 
     get_all_users,
+    view_feed,
     get_all_users_json,
     get_user,
     get_user_by_username,
@@ -86,6 +87,9 @@ def get_user_page():
 @login_required
 def viewProfile(userId):
     user=get_user(userId)
+
+    result = view_feed(current_user.id, userId)
+
     images=get_images_by_userid(userId)
     images = [image.toJSON() for image in images]
     #rating_info=get_ratings_by_creator(userId)
@@ -95,7 +99,16 @@ def viewProfile(userId):
         return render_template('profilePage.html',user=user,images=images,rating_info=total_rating,values=values)
     return redirect(url_for('distributer_views.view_profiles_again'))
 
+@user_views.route('/api/viewUserProfile/<userId>', methods=['GET'])
+@jwt_required()
+def viewProfile_api(userId):
 
+    result = view_feed(current_identity.id, userId)
+
+    if result is None:
+        return jsonify("Feed viewed already")
+        
+    return jsonify("Feed Viewed")
 
 @user_views.route('/api/users', methods=['GET'])
 def get_all_users_action():

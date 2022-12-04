@@ -21,6 +21,20 @@ def getFeed(userID):
         
     return user_feed
 
+def view_feed(userID, targetID):
+    
+    user_feed = ProfileFeed.query.filter_by(recieverID=userID, senderID=targetID, seen = False).first()
+
+    if user_feed is None:
+        return None
+
+    user_feed.seen = True
+    
+    db.session.add(user_feed)
+    db.session.commit()
+
+    return 1
+
 def getAllFeeds():
     
     feeds = ProfileFeed.query.all()
