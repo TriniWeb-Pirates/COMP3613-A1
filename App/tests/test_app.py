@@ -18,6 +18,7 @@ from App.controllers import (
     create_image,
     get_all_images,
     get_all_images_json,
+    get_images_by_userid,
     get_images_by_userid_json,
     get_image,
     get_image_json,
@@ -43,6 +44,7 @@ from App.controllers import (
     get_ranking_by_actors,
     get_calculated_ranking,
     update_ranking,
+    delete_ranking,
 
     authenticate
 )
@@ -85,7 +87,6 @@ class UserUnitTests(unittest.TestCase):
         image = Image(1)
         image_json = image.toJSON()
         self.assertDictEqual(image_json, {"id":None, "rankings":[], "userId": 1})
-
 
     def test_new_rating(self):
         rating = Rating(1, 2, 3)
@@ -169,6 +170,12 @@ class UsersIntegrationTests(unittest.TestCase):
         imageList.append(get_image(2))
         self.assertListEqual(get_all_images(), imageList)
 
+    def test_get_image_by_userid(self):
+        
+        images = get_images_by_userid(1)
+
+        assert all(image.userId == 1 for image in images)
+
     def test_delete_image(self):
         image = create_image(1, 'test')
         delete_image(image.id)
@@ -245,3 +252,10 @@ class UsersIntegrationTests(unittest.TestCase):
         ranking = create_ranking(3, 2, 5)
         calculated = get_calculated_ranking(2)
         assert calculated == 5
+
+    def test_delete_ranking(self):
+        delete_ranking(1)
+
+        ranking = get_ranking(1)
+
+        assert ranking == None
