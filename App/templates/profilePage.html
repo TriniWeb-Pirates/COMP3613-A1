@@ -116,18 +116,19 @@ class="white-text center">{{user.username}}'s Image Gallery</h3>
     <form action="/addRanking/{{user.id}}" method="post">
     
 
-      {% set values=images %}
-      
-      {% for value in values %}
+    
+      {% for x in range(values) %}
       
       <label>
-        <input class="with-gap" name="{{image.id}}" type="radio" value="{{value.id}}"  />
-        <span>{{value.id}}</span>
+        {% set y=x+1 %}
+        <input class="with-gap" name="{{image.id}}" type="radio" value="{{y}}"  />
+        <span>{{y}}</span>
       </label>
       
       {% endfor %}
       
     </p>
+    
     
   </div>
 </div>

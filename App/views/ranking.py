@@ -27,7 +27,7 @@ def rank_page():
 
 @ranking_views.route('/addRanking/<targetId>', methods=['POST'])
 @login_required
-def add_ranking_action(targetId,id):
+def add_ranking_action(targetId):
     data = request.form
     
     values=[]
