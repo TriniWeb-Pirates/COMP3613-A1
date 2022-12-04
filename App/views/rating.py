@@ -22,7 +22,7 @@ rating_views = Blueprint('rating_views', __name__, template_folder='../templates
 
 @rating_views.route('/view_highest_profile',methods=['GET'])
 def view_highest_profile():
-    return render_template('.html')#put template name
+    return render_template('highest_rated_profile.html')#put template name
 
 
 
