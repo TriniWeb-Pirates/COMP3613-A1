@@ -114,14 +114,14 @@ class="white-text center">{{user.username}}'s Image Gallery</h3>
 
   <p>
     
-    <form action="/addRanking/{{user.id}}" method="post">
+    <form action="/addRanking/{{user.id}}/{{image.id}}" method="post">
 
       {% set values=images %}
       
       {% for value in values %}
       
       <label>
-        <input class="with-gap" name="{{image.id}}" type="radio" value="{{value.id}}"  />
+        <input class="with-gap" name="score" type="radio" value="{{value.id}}"  />
         <span>{{value.id}}</span>
       </label>
       
