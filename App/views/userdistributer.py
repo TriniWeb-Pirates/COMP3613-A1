@@ -7,7 +7,8 @@ from App.controllers import (
     create_user_distributer,
     getAllFeeds,
     get_top_profiles,
-    getFeed
+    getFeed,
+    distrubuteToUser
 )
 
 distributer_views = Blueprint('distributer_views', __name__, template_folder='../templates')
@@ -54,6 +55,7 @@ def view_profiles():
 @distributer_views.route('/viewprofiles',methods=['GET'])
 @login_required
 def view_profiles_again():
+
     result = generateProfileList()
 
     if result==0:
@@ -63,6 +65,10 @@ def view_profiles_again():
 
 
     profiles = getFeed(current_user.id)
+
+    if profiles == []:
+        profiles = distrubuteToUser(current_user.id)
+
     value=1
     return render_template('home.html', profiles=profiles, value=value)
 
@@ -72,3 +78,9 @@ def get_all_feeds_view():
     result = getAllFeeds()
 
     return jsonify(result)
+
+
+@distributer_views.route('/api/getuserfeed',methods=['GET'])
+@jwt_required()
+def get_user_feed_api():
+    return jsonify(getFeed(current_identity.id))

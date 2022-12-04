@@ -3,15 +3,67 @@ from App.controllers import user, profilefeed
 from App.database import db
 import random, datetime
 
+
+viewing_size = 5 #size of each user's feed
+
 def create_user_distributer(num_profiles):
     new_distributer = UserDistributer(num_profiles)
     db.session.add(new_distributer)
     db.session.commit()
     return new_distributer
-    
-def generateProfileList():
 
-    viewing_size = 5 #size of each user's feed
+def checkPopulation(popsize, viewieng_size):
+
+    if popsize < viewieng_size + 1:
+        return 0
+    
+    return 1
+
+
+def checkRecency():
+    distributer_history = UserDistributer.query.all()
+
+    if distributer_history != []:
+
+        last_request = distributer_history[-1].timestamp
+        
+        time_delta = datetime.datetime.now() - last_request
+        
+        if time_delta.total_seconds() < 8600:
+            return 0
+    
+    return 1
+
+def update_last_distributer(profiles):
+    last_distributer = UserDistributer.query.all()[-1]
+
+    if last_distributer:
+        last_distributer.num_profiles += profiles
+        db.session.add(last_distributer)
+        db.session.commit()
+        return last_distributer
+    return None
+
+
+def distrubuteToUser(userID):
+    profiles = user.get_all_users_json()
+
+    profiles.pop(int(userID - 1))
+    
+    feed_profiles = random.sample(profiles, viewing_size)
+
+    last_distributer = update_last_distributer(viewing_size)
+
+    new_feed = []
+    for profile in feed_profiles:
+        new_feed.append(ProfileFeed(profile["id"], userID, last_distributer.id))
+
+    for feed in new_feed:
+            profilefeed.commit_feed(feed)
+
+    return [feed.toJSON() for feed in new_feed]
+
+def generateProfileList():
 
     profiles = user.get_all_users_json()
 
