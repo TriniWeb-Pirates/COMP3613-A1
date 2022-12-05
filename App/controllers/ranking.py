@@ -1,6 +1,7 @@
 from App.models import Ranking, User, Image
 from App.database import db
 
+test = 1 
 def create_ranking(creatorId, imageId, score):
     newRanking = Ranking(creatorId=creatorId, imageId=imageId, score=score)
     db.session.add(newRanking)
