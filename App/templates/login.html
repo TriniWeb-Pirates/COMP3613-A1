@@ -1,99 +1,112 @@
-<!DOCTYPE html>
 <html>
 <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url("{{ url_for('static', filename='waves.png') }}") ;
+    background-size:cover;
+  }
 
-      <style>
-        * {
-          box-sizing: border-box;
-        }
-        
-        body {
-          margin: 0;
-          font-family: Arial;
-        }
-        
-        .column {
-          float: left;
-          width: 25%;
-          padding: 10px;
-        }
-        
-        .column img {
-          opacity: 0.8; 
-          cursor: pointer; 
-        }
-        
-        .column img:hover {
-          opacity: 1;
-        }
-        
-        .row:after {
-          content: "";
-          display: table;
-          clear: both;
-        }
-        
-        .container {
-          position: relative;
-          display: none;
-        }
-        
-        #imgtext {
-          position: absolute;
-          bottom: 15px;
-          left: 15px;
-          color: white;
-          font-size: 20px;
-        }
-        
-        .closebtn {
-          position: absolute;
-          top: 10px;
-          right: 15px;
-          color: white;
-          font-size: 35px;
-          cursor: pointer;
-        }
-      </style>
+  form {border: 3px solid #f1f1f1;}
+  form {border: 3px solid #f1f1f1;
+    background-color:white;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  button:hover {
+    opacity: 0.8;
+  }
+  .imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
+img.avatar {
+  width: 40%;
+  width: 20%;
+  border-radius: 50%;
+
+
+}
+
+
+
+.container {
+  padding: 16px;
+}
+  
+</style>
 </head>
+{% extends "layout.html" %}
+{% block title %}Profile Picture Voting{% endblock %}
+{% block page %}Profile Picture Voting{% endblock %}
+{{ super() }}
 
-    <body>  
-      <div id="imageListing">    
-      <form action="/get_sorted_images" method="post">
-        <div id="view_images"> 
-          <div style="text-align:center">
-            <h2>Tabbed Image Gallery</h2>
-            <p>Click on the images below:</p>
-          </div>
-          
-          <!-- to place jinja2 for loop -->
-          <section class = "row">
-            {% for image in images %}
-              <div class="col s12 m3">
-                <div class = "wrapper">
-                  <div class="card medium grey">
-                    <div class = "info">
-                      <p>Ranking: </p>{{ image.rankings }}
-                      {% set url = image.url | string() %}
+    {% block content %}
+    <div class="contact-title">
+      <h1>Welcome User</h1>
+      <h3 style="font-family: 'Playball', cursive;" class="center">Login</h3>
+    </div>
 
-                       <img src="{{url}}">
-                  </div>
-                  <button type="delete" class="button button-block #1565c0 blue darken-3">delete</button> 
-                </div>
-                </div>
-              </div>
-            {% endfor %}
-          </section>      
+    <div id="login">   
+      <h1>Welcome Back!</h1>
+      <div style="margin-bottom:20px" class="divider #2196f3 blue"></div> 
 
-          <div class="container">
-            <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
-            <img id="expandedImg" style="width:100%">
-            <div id="imgtext"></div>
-          </div>
+
+      <div class="imgcontainer">
+        <img src="static/Avatar.png" alt="Avatar" class="avatar">
+      </div>
+
+      <h4  class="center">Welcome Back, User!</h4>
+
+      <form action="/login" method="post">
+
+
+        <div class="field-wrap">
+          <label>
+          <label style="color:black">
+            UserName<span class="req">*</span>
+          </label>
+          <input type="text" name="username" required autocomplete="off"/>
         </div>
-      </form> 
-    </div>  
-    </body>
+
+        <div class="field-wrap">
+          <label>
+          <label style="color:black">
+            Password<span class="req">*</span>
+          </label>
+          <input type="password" name="password" required autocomplete="off"/>
+        </div>
+
+        <button type="submit" class="button button-block">Login</button>
+        <button type="submit" class="button button-block #1565c0 blue darken-3"><i class="material-icons left"></i>Login</button> 
+
+        <button a href="/" style="margin-top:1% ;" class="button button-block">  Go Back </button>
+
+      </form>
+
+    </div>
+  
+    {% endblock %}
+</html>    
     
-</html>
+   
