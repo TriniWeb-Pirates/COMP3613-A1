@@ -13,7 +13,6 @@ from App.controllers import (
 
 distributer_views = Blueprint('distributer_views', __name__, template_folder='../templates')
 
-
 @distributer_views.route('/generate_profile_feeds',methods=['GET'] )
 def generate_profile_feeds():
     result = generateProfileList()

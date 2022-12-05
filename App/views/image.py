@@ -24,6 +24,7 @@ image_views = Blueprint('image_views', __name__, template_folder='../templates')
 def image_page():
     return render_template('addImage.html')
 
+#route for adding images to a user
 @image_views.route('/addImage', methods=['POST'])
 @login_required
 def add_image():
@@ -36,23 +37,22 @@ def add_image():
     flash('You already uploaded this picture')
     return redirect(url_for('image_views.image_page'))
 
+#route for listing all images
 @image_views.route('/imageListing', methods=['GET'])
 def getImageList():
     images = get_all_images()
     return render_template('image_listing.html', images=images)
 
+#route for providing a list of a user images
 @image_views.route('/viewUserImages', methods=['GET'])
 @login_required
 def viewMyImages():
     images=get_images_by_userid(current_user.id)
     images = [image.toJSON() for image in images]
     print(images)
-    #if images:
-    #    flash('You must add images to your profile to view them')
-    #    return redirect(url_for('image_views.image_page'))
     return render_template('image_listing.html',images=images)
 
-
+#route for removing an image
 @image_views.route('/deleteImage/<imageID>', methods=['DELETE'])
 @login_required
 def remove_image(imageID):
@@ -63,8 +63,8 @@ def remove_image(imageID):
         return redirect(url_for('image_views.viewMyImages')) 
     return redirect(url_for('image_views.viewMyImages'))
 
-#Old Routes for testing
 @image_views.route('/getImages', methods=['GET'])
+@login_required
 def getImages():
     images = get_all_images()
     return render_template('images.html', images=images)
@@ -76,8 +76,8 @@ def get_image_page():
     images = get_all_images()
     return render_template('images.html', images=images)
 
+#Old Routes for postman testing
 @image_views.route('/createImage/<userID>', methods=['POST'])
-#@login_required
 def create_image_action(userID):
     data = request.json
     user = get_user(userID)
