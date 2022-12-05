@@ -111,6 +111,7 @@
 class="white-text center">{{user.username}}'s Image Gallery</h3>
 <div style="margin-bottom:3%;" class="divider"></div> 
 
+{% if images %}
 
 {% for image in images %}
 
@@ -172,7 +173,12 @@ class="white-text center">{{user.username}}'s Image Gallery</h3>
 <br>
 </form>
 
+{% else %}
 
+<h5 class="center white-text">This user currently has no images to display in their gallery. </h5>
+<br> 
+
+{% endif %}
 
 
 
