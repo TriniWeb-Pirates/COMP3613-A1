@@ -63,9 +63,9 @@ def get_highest():
     profile_list = []
     rating_list = []
 
-    for key, value in result.items():
-        profile_list.append(get_user(result[key]))
-        rating_list.append(key)
+    for pair in result:
+        profile_list.append(pair[1])
+        rating_list.append(pair[0])
 
     best_images = []
 
@@ -76,7 +76,7 @@ def get_highest():
             
         else:
             best_images.append(f"user {profile} has no images!")
-            
+
     #use three lists above as data in template
     return jsonify(profile_list)
 

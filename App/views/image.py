@@ -47,7 +47,7 @@ def getImageList():
 @image_views.route('/viewUserImages', methods=['GET'])
 @login_required
 def viewMyImages():
-    rankings,images=get_sorted_images(current_user.id)
+    rankings, images = get_sorted_images(current_user.id)
     return render_template('image_listing.html',info=zip(images,rankings))
 
 #route for removing an image
