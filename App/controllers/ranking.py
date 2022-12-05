@@ -13,6 +13,7 @@ def get_rankings_by_creator(creatorId):
         return None
     return ranking
 
+
 def get_rankings_by_image(imageId):
     ranking=Ranking.query.filter_by(imageId=imageId)
     if ranking==None:

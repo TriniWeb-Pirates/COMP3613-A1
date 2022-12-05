@@ -68,13 +68,14 @@
           
           <!-- to place jinja2 for loop -->
           <section class = "row">
-            {% for image in images %}
+            {% for image,ranking in info %}
+
               <div class="col s12 m3">
                 <div class = "wrapper">
                   <div class="card medium grey">
                     <div class = "info">
-                      <p>Ranking: </p>{{ image.rankings }}
-                      {% set url = image.url | string() %}
+                      <p>Ranking: </p>{{ ranking }}
+                      {% set url = image | string() %}
 
                        <img src="{{url}}">
                   </div>

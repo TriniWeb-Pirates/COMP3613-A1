@@ -51,7 +51,6 @@ def get_sorted_images(userId):
     for image in images:
         rankings.append(ranking.get_calculated_ranking(image.id))
 
-    print(rankings)
     
     paired_lists = zip(rankings, images)
 

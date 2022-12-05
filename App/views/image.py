@@ -47,9 +47,8 @@ def getImageList():
 @image_views.route('/viewUserImages', methods=['GET'])
 @login_required
 def viewMyImages():
-    images=get_images_by_userid(current_user.id)
-    images = [image.toJSON() for image in images]
-    return render_template('image_listing.html',images=images)
+    rankings,images=get_sorted_images(current_user.id)
+    return render_template('image_listing.html',info=zip(images,rankings))
 
 #route for removing an image
 @image_views.route('/deleteImage/<imageID>', methods=['POST'])
