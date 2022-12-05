@@ -75,10 +75,9 @@ def get_calculated_rating(targetId):
         
         if(x!=0):
             avg = total/x
-            print(avg)
             return avg
 
-        return None 
+    return 0 
 
 def get_all_total_ratings():
     profiles = user.get_all_users_json()
@@ -96,17 +95,16 @@ def get_top_profiles():
 
     profile_ratings = get_all_total_ratings()
 
-    top_profiles = {}
+    if len(profile_ratings) == 1:
+        return None
 
-    for i in range(viewing_size):
+    profile_ids = [x + 1 for x in range(len(profile_ratings))]
 
-        highest_val = max(profile_ratings)
-        highest_index = profile_ratings.index(highest_val)
-        profile_ratings.pop(highest_index)
+    profile_rating_pair = zip(profile_ratings, profile_ids)
 
-        profile_value =str(highest_index + 1)
+    sorted_list = sorted(profile_rating_pair, reverse=True,  key = lambda x: x[0])
 
-        top_profiles[profile_value] = highest_val
+    top_profiles = sorted_list[:3]
 
     return top_profiles
 

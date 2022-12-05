@@ -50,7 +50,6 @@ def get_sorted_images(userId):
 
     for image in images:
         rankings.append(ranking.get_calculated_ranking(image.id))
-
     
     paired_lists = zip(rankings, images)
 
@@ -58,9 +57,12 @@ def get_sorted_images(userId):
 
     unpaired_tuples = zip(*sorted_lists)
 
-    rankings, images = [pair for pair in unpaired_tuples]
-    
-    return rankings, images
+    try:
+        rankings, images = [pair for pair in unpaired_tuples]
+
+        return rankings, images
+    except:
+        return None, None
     
 def get_all_images():
     return Image.query.all()
