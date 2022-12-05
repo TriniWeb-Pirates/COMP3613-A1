@@ -15,7 +15,6 @@
             <h2>List Of Highest Rated Users</h2>
             <p>Click User To See Their Highest Ranked Images</p>
           </div>
-          <section class="col s12 m8" style="overflow-y: scroll; height:90vh">
             {% for user in users %}
             <div class="col s12 m3">
               <div class = "wrapper">
@@ -24,17 +23,20 @@
                     <h1>UserName</h1>{{user.username}}
                     <p>Rating: </p>{{user.rating}}
                     <p>
-                    {% for x in range(5) %}
+                    {% for x in range(3) %}
                     {% if x < user.get_avg_rating() %}
-                    <span class="fa fa-star checked"></span>
+                    <span>Dont know what code to put here</span>
+                    {% else %}
+                    <span>Have no clue help</span> 
                     {% endif %}
+                    {% endfor %}
                     </p>
                     <a class = "btn" href="/{{user.profile}}">Look at images</a>
                 </div>
                 </div>
               </div>
             </div>
-          </section>
+            {% endfor %}
         </div>
       </form>
     </div>
