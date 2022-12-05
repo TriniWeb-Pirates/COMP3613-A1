@@ -19,36 +19,25 @@ from App.controllers import (
 
 rating_views = Blueprint('rating_views', __name__, template_folder='../templates')
 
-
-@rating_views.route('/view_highest_profile',methods=['GET'])
-def view_highest_profile():
-    return render_template('.html')#put template name
-
-
-
+#route for adding a rating to a profile
 @rating_views.route('/addRating/<targetId>', methods=['POST'])
 @login_required
 def add_Rating(targetId):
     value=request.form
     data=int(value['score'])
     if get_user(targetId):
-        #if data['creatorId']!=data['targetId']:
         prev = get_rating_by_actors(current_user.id, targetId)
         if prev:#Rerate profile
             rating=update_rating(prev.id, data)
             flash('You have given the profile a new rating!')
-            #return redirect(url_for('user_views.viewProfile'), userId=targetId)
             return redirect('/viewUserProfile/<targetId>')
         rating = create_rating(current_user.id, targetId, data)#Rate profile
         if rating!=None:
             flash('You just rated another profile')
             return redirect('/viewUserProfile/<targetId>')
-        #    flash('Invalid action, You cannot rate yourself')
-        #    return redirect(url_for('user_views./viewUserProfile/<targetId>'))
             
-
+#old routes for postman testing
 @rating_views.route('/api/ratings', methods=['POST'])
-#@login_required
 def create_rating_action():
     data = request.json
     if get_user(data['creatorId']) and get_user(data['targetId']):
@@ -62,13 +51,11 @@ def create_rating_action():
     return jsonify({"message":"User not found"}) 
 
 @rating_views.route('/api/ratings', methods=['GET'])
-#@login_required
 def get_all_ratings_action():
     ratings = get_all_ratings_json()
     return jsonify(ratings)
 
 @rating_views.route('/api/ratings/byid', methods=['GET'])
-#@login_required
 def get_rating_action():
     data = request.json
     rating = get_rating(data['id'])
@@ -77,7 +64,6 @@ def get_rating_action():
     return jsonify({"message":"Rating not found"})
 
 @rating_views.route('/api/ratings/bycreator', methods=['GET'])
-#@login_required
 def get_rating_by_creator_action():
     data = request.json
     if get_user(data['creatorId']):

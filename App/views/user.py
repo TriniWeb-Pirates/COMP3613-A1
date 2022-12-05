@@ -9,6 +9,7 @@ from flask_jwt import jwt_required, current_identity
 from App.controllers import (
     create_user, 
     get_all_users,
+    view_feed,
     get_all_users_json,
     get_user,
     get_user_by_username,
@@ -21,11 +22,13 @@ from App.controllers import (
     identity,
     get_images_by_userid,
     get_ratings_by_creator,
-    get_calculated_rating
+    get_calculated_rating,
+    get_user_image_count
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
 
+#route for creating a profile, this route is for postman
 @user_views.route('/createuser',methods=['POST'])
 def create_user_action():
     data = request.json
@@ -35,7 +38,7 @@ def create_user_action():
     user = create_user(data['username'], data['password'])
     return jsonify({"message":"User Created"}) 
 
-
+#signup routes
 @user_views.route('/signup',methods=['GET'])
 def getSignUpPage():
     return render_template('signup.html')
@@ -50,7 +53,7 @@ def signupAction():
     user = create_user(data['username'], data['password'])
     return redirect(url_for('user_views.getLoginPage'))
 
-
+#login routes
 @user_views.route('/login',methods=['GET'])
 def getLoginPage():
     return render_template('login.html')
@@ -66,12 +69,14 @@ def loginAction():
     flash('You were successfully logged in!')
     return redirect(url_for('distributer_views.view_profiles_again'))
 
+#route getting the home page
 @user_views.route('/home',methods=['GET'])
 @login_required
 def get_homePage():
     flash(" Welcome "+current_user.username)
     return render_template('home.html')
 
+#route for getting all user profiles
 @user_views.route('/users', methods=['GET'])
 @login_required
 def get_user_page():
@@ -80,28 +85,38 @@ def get_user_page():
         return redirect(url_for(''))
     return render_template('users.html', users=users)
 
-
+#route for viewing a user's profile
 @user_views.route('/viewUserProfile/<userId>', methods=['GET'])
 @login_required
 def viewProfile(userId):
     user=get_user(userId)
+    result = view_feed(current_user.id, userId)
     images=get_images_by_userid(userId)
     images = [image.toJSON() for image in images]
-    #rating_info=get_ratings_by_creator(userId)
+    values=get_user_image_count(userId)
     total_rating=get_calculated_rating(userId)
     if user:
-        return render_template('profilePage.html',user=user,images=images,rating_info=total_rating)
+        return render_template('profilePage.html',user=user,images=images,rating_info=total_rating,values=values)
     return redirect(url_for('distributer_views.view_profiles_again'))
 
+#old routes for postman testing
+@user_views.route('/api/viewUserProfile/<userId>', methods=['GET'])
+@jwt_required()
+def viewProfile_api(userId):
 
+    result = view_feed(current_identity.id, userId)
+
+    if result is None:
+        return jsonify("Feed viewed already")
+        
+    return jsonify("Feed Viewed")
 
 @user_views.route('/api/users', methods=['GET'])
 def get_all_users_action():
     users = get_all_users_json()
     return jsonify(users)
-#Old Code
+
 @user_views.route('/api/users/byid', methods=['GET'])
-#@login_required
 def get_user_action():
     data = request.json
     user = get_user(data['id'])
@@ -110,7 +125,6 @@ def get_user_action():
     return jsonify({"message":"User Not Found"})
 
 @user_views.route('/api/users', methods=['PUT'])
-#@login_required
 def update_user_action():
     data = request.json
     user = update_user(data['id'], data['username'])
@@ -119,7 +133,6 @@ def update_user_action():
     return jsonify({"message":"User Not Found"})
 
 @user_views.route('/api/users', methods=['DELETE'])
-#@login_required
 def delete_user_action():
     data = request.json
     if get_user(data['id']):
@@ -132,6 +145,7 @@ def delete_user_action():
 def identify_user_action():
     return jsonify({'message': f"username: {current_identity.username}, id : {current_identity.id}"})
 
+#route for logging out a user
 @user_views.route("/logout")
 @login_required
 def logout():

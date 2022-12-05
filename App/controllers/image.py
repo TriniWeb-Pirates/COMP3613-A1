@@ -27,6 +27,12 @@ def get_image_json(id):
 def get_images_by_userid(userId):
     return Image.query.filter_by(userId=userId).all()
     
+def get_user_image_count(userId):
+    images=Image.query.filter_by(userId=userId).all()
+    count=0
+    for image in images:
+        count=count+1
+    return count
 
 def get_images_by_userid_json(userId):
     images = Image.query.filter_by(userId=userId)
@@ -44,8 +50,6 @@ def get_sorted_images(userId):
 
     for image in images:
         rankings.append(ranking.get_calculated_ranking(image.id))
-
-    print(rankings)
     
     paired_lists = zip(rankings, images)
 
@@ -53,9 +57,12 @@ def get_sorted_images(userId):
 
     unpaired_tuples = zip(*sorted_lists)
 
-    rankings, images = [pair for pair in unpaired_tuples]
-    
-    return rankings, images
+    try:
+        rankings, images = [pair for pair in unpaired_tuples]
+
+        return rankings, images
+    except:
+        return None, None
     
 def get_all_images():
     return Image.query.all()

@@ -14,6 +14,7 @@ def get_rankings_by_creator(creatorId):
         return None
     return ranking
 
+
 def get_rankings_by_image(imageId):
     ranking=Ranking.query.filter_by(imageId=imageId)
     if ranking==None:
@@ -71,12 +72,12 @@ def update_ranking(id, score):
         return ranking
     return None
 
-# def delete_ranking(id):
-#     ranking = get_ranking(id)
-#     if ranking:
-#         db.session.delete(ranking)
-#         return db.session.commit()
-#     return None
+def delete_ranking(id):
+    ranking = get_ranking(id)
+    if ranking:
+        db.session.delete(ranking)
+        return db.session.commit()
+    return None
     
 def get_calculated_ranking(imageId):
     rankings = Ranking.query.filter_by(imageId=imageId)

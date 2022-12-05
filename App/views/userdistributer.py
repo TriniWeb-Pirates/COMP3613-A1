@@ -8,11 +8,12 @@ from App.controllers import (
     getAllFeeds,
     get_top_profiles,
     getFeed,
-    distrubuteToUser
+    distrubuteToUser,
+    get_user,
+    get_sorted_images
 )
 
 distributer_views = Blueprint('distributer_views', __name__, template_folder='../templates')
-
 
 @distributer_views.route('/generate_profile_feeds',methods=['GET'] )
 def generate_profile_feeds():
@@ -32,15 +33,59 @@ def gendis():
     return jsonify(chosen_users)
 
 
-@distributer_views.route('/gettopfeeds',methods=['GET'])
+@distributer_views.route('/api/gettopprofiles',methods=['GET'])
 def get_top_rated_view():
     result = get_top_profiles()
 
+    profile_list = []
+    rating_list = []
+
+    for pair in result:
+        profile_list.append(pair[1])
+        rating_list.append(pair[0])
+
+    best_images = []
+
+    for profile in profile_list:
+        rankings, images  = get_sorted_images(profile)
+        if images != None:
+            best_image = images[:1][0]
+            print(f"profile id {profile} best image is {best_image.id}")
+        else:
+            print(f"user {profile} has no images!")
+    
     return jsonify(result)
+
+@distributer_views.route('/get_top_profiles',methods=['GET'])
+def get_highest():
+    result = get_top_profiles()
+
+    profile_list = []
+    rating_list = []
+
+    for pair in result:
+        profile_list.append(pair[1])
+        rating_list.append(pair[0])
+
+    best_images = []
+
+    for profile in profile_list:
+        rankings, images  = get_sorted_images(profile)
+        if images != None:
+            best_images.append(images[:1][0])
+            
+        else:
+            best_images.append(f"user {profile} has no images!")
+    #use three lists above as data in template
+    return render_template('highest_rated_profile.html', result=result)
+    #return jsonify(profile_list)
+
+
 
 @distributer_views.route('/api/viewprofiles',methods=['GET'])
 @jwt_required()
 def view_profiles():
+
     result = generateProfileList()
 
     if result == 0:

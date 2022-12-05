@@ -46,6 +46,15 @@
 .rate > label:hover ~ input:checked ~ label {
     color: #c59b08;
 }
+
+.container{
+        margin: 0 auto;
+        max-width: 1280px;
+        width: 80%;
+      }
+
+
+
     </style>
 
 <div class="row">
@@ -63,10 +72,13 @@
         </div>
     </div>
        
-      
+      <!--Testing-->
       
       <div style="background-color: white"class="card-action center">
         
+        {% if rating_info==None %}
+        {% set rating_info=0 %}
+        {% endif %}
         <h5>Current Average Profile Rating: {{rating_info}}</h5>
         <h5>Add New Rating:</h5> 
         
@@ -100,43 +112,64 @@
 
 <h3 style="font-family: 'Playball', cursive; padding-bottom: 2%;" 
 class="white-text center">{{user.username}}'s Image Gallery</h3>
+<div style="margin-bottom:3%;" class="divider"></div> 
 
+{% if images %}
 
 {% for image in images %}
 
 <div class="row center">
-  <div class="col s10 offset-s1">
+  {% if image.id%2==0 %}
+  <div class="col s4" style="margin-left:20%">
+  {% else %}
+  <div class="col s4" style="margin-left:6%">
+  {% endif %}
+
 <div class="card">
   <div class="card-image">
     <img src="{{image.url}}">
   
   </div>
 
-  <p>
-    
-    
-    {% set values=images %}
 
-    {% for value in values %}
-
-    <label>
-      <input class="with-gap" name="group{{image.id}}" type="radio" value="{{value.id}}"  />
-      <span>{{value.id}}</span>
-    </label>
-
-  {% endfor %}
   
-  </p>
 
-  <div class="card-action">
-    <button class="#039be5 light-blue darken-1 waves-effect waves-light btn" type="submit" name="action">Add Ranking</button>
+  <div class="card-content">
+
+  
+    <form action="/addRanking/{{user.id}}" method="post">
+    
+
+    
+      {% for x in range(values) %}
+
+
+      
+      <label>
+        {% set y=x+1 %}
+        <input class="with-gap" name="{{image.id}}" type="radio" value="{{y}}"  />
+        <span>{{y}}</span>
+      </label>
+      
+      {% endfor %}
+      
     
     
+    
+      
+      
+    </div>
+
+    <div style="margin-top:0%" class="card-action #039be5 light-blue darken-1 z-depth-2 white-text">RANK IMAGE </div>
+
+
+
   </div>
-</div>
+  <br>
 </div>
 
-</div>
+
+
 
 
 
@@ -144,12 +177,20 @@ class="white-text center">{{user.username}}'s Image Gallery</h3>
 
 {% endfor %}
 
+</div>
+
 <div class="center">
-<button class="green waves-effect waves-light btn" type="submit" name="action">Submit Final Ranking</button>
+  <button class="green waves-effect waves-light btn" type="submit">Submit Final Ranking</button>
 </div>
 <br>
+</form>
 
+{% else %}
 
+<h5 class="center white-text">This user currently has no images to display in their Gallery. </h5>
+<br> 
+
+{% endif %}
 
 
 

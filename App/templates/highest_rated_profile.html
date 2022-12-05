@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+
+  </style>
+      
+</head>
+  <body>  
+    <div id="get_top_profiles ">
+      <form action="/get_top_profiles" method="post" >
+        <div id="get_top_profiles">
+          <div style="text-align:center">
+            <h2>List Of Highest Rated Users</h2>
+            <p>Click User To See Their Highest Ranked Images</p>
+          </div>
+            {% for user in users %}
+            <div class="col s12 m3">
+              <div class = "wrapper">
+                <div class="card medium grey">
+                  <div class = "info">
+                    <h1>UserName</h1>{{user.username}}
+                    <p>Rating: </p>{{user.rating}}
+                    <p>
+                    {% for x in range(3) %}
+                    {% if x < user.get_top_profiles() %}
+                    <span>Dont know what code to put here</span>
+                    {% else %}
+                    <span>Have no clue help</span> 
+                    {% endif %}
+                    {% endfor %}
+                    </p>
+                    <a class = "btn" href="/{{user.profile}}">Look at images</a>
+                </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+        </div>
+      </form>
+    </div>
+  </body>    
+</html>

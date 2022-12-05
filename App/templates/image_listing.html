@@ -60,7 +60,6 @@
 
     <body>  
       <div id="imageListing">    
-      <form action="/imageListing" method="post">
         <div id="view_images"> 
           <div style="text-align:center">
             <h2>Tabbed Image Gallery</h2>
@@ -69,16 +68,20 @@
           
           <!-- to place jinja2 for loop -->
           <section class = "row">
-            {% for image in images %}
+            {% for image,ranking in info %}
+
               <div class="col s12 m3">
                 <div class = "wrapper">
                   <div class="card medium grey">
                     <div class = "info">
-                      <p>Ranking: </p>{{ image.rankings }}
-                      {% set url = image.url | string() %}
+                      <p>Ranking: </p>{{ ranking }}
+                      {% set url = image | string() %}
 
                        <img src="{{url}}">
                   </div>
+                  <form action="/deleteImage/{{image.id}}" method="post">
+                     <button type="submit" value="{{image.id}}" class="button button-block #1565c0 blue darken-3">delete</button> 
+                  </form>
                 </div>
                 </div>
               </div>
@@ -91,9 +94,8 @@
             <div id="imgtext"></div>
           </div>
         </div>
-      </form> 
+      
     </div>  
     </body>
-
     
 </html>

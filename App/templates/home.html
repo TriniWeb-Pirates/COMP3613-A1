@@ -30,7 +30,7 @@
             <div class="card-action">
               <a href="/addImage" style="margin-bottom: 10px" class="waves-effect waves-light btn #1565c0 blue darken-3"><i class="material-icons right">photo_camera</i>Add Image</a>
               <a href="/viewUserImages" style="margin-bottom: 10px"class="#1565c0 blue darken-3 waves-effect waves-light btn"><i class="material-icons right">photo</i>View Images</a>
-              <a style="margin-bottom: 10px"class="#1565c0 blue darken-3 waves-effect waves-light btn"><i class="material-icons right">show_chart</i>Top Profiles</a>
+              <a href="/get_top_profiles" style="margin-bottom: 10px"class="#1565c0 blue darken-3 waves-effect waves-light btn"><i class="material-icons right">show_chart</i>Top Profiles</a>
               <a href="/logout" style="margin-bottom: 10px"class="#1565c0 blue darken-3 waves-effect waves-light btn"><i class="material-icons right">exit_to_app</i>Logout</a>
             </div>
           </div>
@@ -51,7 +51,7 @@
             {% for profile in profiles %}
             <!--card code to be repeated goes here-->
             <div class="col s4">
-              <div class="card #039be5 light-blue darken-1">
+              <div class="card hoverable #039be5 light-blue darken-1">
                 <div class="card-content white-text">
                   <span class="card-title center">User ID # {{profile.senderID}}</span>
                  

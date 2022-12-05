@@ -7,11 +7,12 @@
     background-image: url("{{ url_for('static', filename='waves.png') }}") ;
     background-size:cover;
   }
-  
+
+  form {border: 3px solid #f1f1f1;}
   form {border: 3px solid #f1f1f1;
     background-color:white;
   }
-  
+
   input {
     width: 100%;
     padding: 12px 20px;
@@ -21,33 +22,30 @@
     box-sizing: border-box;
   }
   
-  .button {
-    text-align: center;
+  button {
     background-color: #04AA6D;
     color: white;
     padding: 14px 20px;
-    margin-top: 1%;
+    margin: 8px 0;
     border: none;
     cursor: pointer;
     width: 100%;
   }
-
   
-  
-  .button:hover {
+  button:hover {
     opacity: 0.8;
   }
-
   .imgcontainer {
   text-align: center;
   margin: 24px 0 12px 0;
 }
 
 img.avatar {
-  width: 17%;
+  width: 40%;
+  width: 20%;
   border-radius: 50%;
-  
-  
+
+
 }
 
 
@@ -62,49 +60,43 @@ img.avatar {
 {% block title %}Profile Picture Voting{% endblock %}
 {% block page %}Profile Picture Voting{% endblock %}
 {{ super() }}
-    
+
     {% block content %}
-    <div class="contact-title">
-      <h3 style="font-family: 'Playball', cursive;" class="center">Login</h3>
-    </div>
-
     <div id="login">   
-      <div style="margin-bottom:20px" class="divider #2196f3 blue"></div> 
-    
-
       <div class="imgcontainer">
         <img src="static/Avatar.png" alt="Avatar" class="avatar">
       </div>
 
-      <h5  class="center">Welcome Back, User!</h5>
+      <h4  class="center">Welcome Back, User!</h4>
 
       <form action="/login" method="post">
 
 
         <div class="field-wrap">
+          <label>
           <label style="color:black">
-            Username<span class="req">*</span>
+            UserName<span class="req">*</span>
           </label>
           <input type="text" name="username" required autocomplete="off"/>
         </div>
-      
+
         <div class="field-wrap">
+          <label>
           <label style="color:black">
             Password<span class="req">*</span>
           </label>
           <input type="password" name="password" required autocomplete="off"/>
         </div>
-      
-        <button type="submit" class="button button-block #1565c0 blue darken-3">Login</button> 
-        
-          <a href="/" type="button"  class="button button-block">  Go Back </a>
-        
+
+        <button type="submit" class="button button-block #1565c0 blue darken-3"><i class="material-icons left"></i>Login</button> 
+
+        <button a href="/" style="margin-top:1% ;" class="button button-block">  Go Back </button>
+
       </form>
-      
+
     </div>
   
     {% endblock %}
 </html>    
-
     
    
