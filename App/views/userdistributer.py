@@ -8,7 +8,8 @@ from App.controllers import (
     getAllFeeds,
     get_top_profiles,
     getFeed,
-    distrubuteToUser
+    distrubuteToUser,
+    get_user
 )
 
 distributer_views = Blueprint('distributer_views', __name__, template_folder='../templates')
@@ -40,11 +41,15 @@ def get_top_rated_view():
 @distributer_views.route('/get_top_profiles',methods=['GET'])
 def get_highest():
     result = get_top_profiles()
+    profile_list=[]
+    for value in result:
+        profile_list.append()
     return jsonify(result)
 
 @distributer_views.route('/api/viewprofiles',methods=['GET'])
 @jwt_required()
 def view_profiles():
+
     result = generateProfileList()
 
     if result == 0:

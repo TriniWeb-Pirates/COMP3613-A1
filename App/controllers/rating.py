@@ -104,7 +104,7 @@ def get_top_profiles():
         highest_index = profile_ratings.index(highest_val)
         profile_ratings.pop(highest_index)
 
-        profile_value = "User " + str(highest_index + 1)
+        profile_value =str(highest_index + 1)
 
         top_profiles[profile_value] = highest_val
 
