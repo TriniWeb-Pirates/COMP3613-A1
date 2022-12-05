@@ -38,6 +38,11 @@ def get_top_rated_view():
 
     return jsonify(result)
 
+@distributer_views.route('/get_top_profiles',methods=['GET'])
+def get_highest():
+    result = get_top_profiles()
+    return jsonify(result)
+
 @distributer_views.route('/api/viewprofiles',methods=['GET'])
 @jwt_required()
 def view_profiles():

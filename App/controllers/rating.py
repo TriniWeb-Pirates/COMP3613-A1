@@ -78,11 +78,7 @@ def get_calculated_rating(targetId):
             print(avg)
             return avg
 
-        return None
-        
-
-  
-        
+        return None 
 
 def get_all_total_ratings():
     profiles = user.get_all_users_json()

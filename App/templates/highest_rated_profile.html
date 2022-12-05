@@ -24,7 +24,7 @@
                     <p>Rating: </p>{{user.rating}}
                     <p>
                     {% for x in range(3) %}
-                    {% if x < user.get_avg_rating() %}
+                    {% if x < user.get_top_profiles() %}
                     <span>Dont know what code to put here</span>
                     {% else %}
                     <span>Have no clue help</span> 
