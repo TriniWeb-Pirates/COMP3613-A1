@@ -76,9 +76,11 @@ def get_highest():
             
         else:
             best_images.append(f"user {profile} has no images!")
-
     #use three lists above as data in template
-    return jsonify(profile_list)
+    return render_template('highest_rated_profile.html', result=result)
+    #return jsonify(profile_list)
+
+
 
 @distributer_views.route('/api/viewprofiles',methods=['GET'])
 @jwt_required()
