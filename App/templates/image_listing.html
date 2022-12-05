@@ -60,7 +60,6 @@
 
     <body>  
       <div id="imageListing">    
-      <form action="/get_sorted_images" method="post">
         <div id="view_images"> 
           <div style="text-align:center">
             <h2>Tabbed Image Gallery</h2>
@@ -79,7 +78,9 @@
 
                        <img src="{{url}}">
                   </div>
-                  <button type="delete" class="button button-block #1565c0 blue darken-3">delete</button> 
+                  <form action="/deleteImage/{{image.id}}" method="post">
+                     <button type="submit" value="{{image.id}}" class="button button-block #1565c0 blue darken-3">delete</button> 
+                  </form>
                 </div>
                 </div>
               </div>
@@ -92,7 +93,7 @@
             <div id="imgtext"></div>
           </div>
         </div>
-      </form> 
+      
     </div>  
     </body>
     
