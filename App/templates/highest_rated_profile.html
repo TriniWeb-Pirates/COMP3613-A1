@@ -18,7 +18,7 @@
                 <div class="card-image">
                    
                 {% if best_image[x] != "No Images" %}
-                   <img src="{{image[x].url}}">
+                   <img src="{{best_image[x].url}}">
                {% endif %}
                 </div>
                 <div class="card-content">
@@ -26,7 +26,6 @@
                         <div class="card-content">     
                     <h4>User Profile: {{profile_list[x]}}</h4>
                     <h4>User Rating: {{rating_list[x]}}</h4>
-                    <h4>User images: {{best_image[x]}}</h4>
                 </div>               
                 <div class="card-action">
                 </div>

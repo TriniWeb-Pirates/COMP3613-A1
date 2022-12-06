@@ -53,7 +53,7 @@ def get_sorted_images(userId):
     
     paired_lists = zip(rankings, images)
 
-    sorted_lists = sorted(paired_lists, reverse=True,  key = lambda x: x[0])
+    sorted_lists = sorted(paired_lists, key = lambda x: x[0])
 
     unpaired_tuples = zip(*sorted_lists)
 
