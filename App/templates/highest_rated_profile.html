@@ -5,10 +5,19 @@
 
 
     {% block content %}
+
+    <style>
+    body{
+      background-color: #1651a4 ;
+    }
+  </style>
+
     <div id="get_top_profiles ">
         <div id="get_top_profiles">
           <div style="text-align:center">
-            <h2>List Of Highest Rated Users</h2>
+            <h3  class="white-text">Highest Rated Profiles</h3> 
+            <div style="margin-bottom:20px;" class="divider"></div>
+            <br>
           </div> 
           {% if profile_list %}
           {% for x in range(3) %}
@@ -21,14 +30,13 @@
                    <img src="{{best_image[x].url}}">
                {% endif %}
                 </div>
-                <div class="card-content">
+                <div class="card-action #039be5 light-blue darken-1">
                 </div>
                         <div class="card-content">     
                     <h4>User Profile: {{profile_list[x]}}</h4>
                     <h4>User Rating: {{rating_list[x]}}</h4>
                 </div>               
-                <div class="card-action">
-                </div>
+                
               </div>              
             </div>
           </div>  

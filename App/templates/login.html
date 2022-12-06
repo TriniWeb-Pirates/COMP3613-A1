@@ -22,18 +22,19 @@
     box-sizing: border-box;
   }
   
-  button {
+  .button {
+    text-align: center;
     background-color: #04AA6D;
     color: white;
     padding: 14px 20px;
-    margin: 8px 0;
+    margin-top: 1%;
     border: none;
     cursor: pointer;
     width: 100%;
   }
   
-  button:hover {
-    opacity: 0.8;
+  .button:hover {
+    opacity:0.8;
   }
   .imgcontainer {
   text-align: center;
@@ -42,7 +43,7 @@
 
 img.avatar {
   width: 40%;
-  width: 20%;
+  width: 15%;
   border-radius: 50%;
 
 
@@ -63,11 +64,13 @@ img.avatar {
 
     {% block content %}
     <div id="login">   
+      <h3 style="font-family: 'Playball', cursive;" class="center">Sign Up</h3>
+        <div style="margin-bottom:20px" class="divider #2196f3 blue"></div> 
       <div class="imgcontainer">
         <img src="static/Avatar.png" alt="Avatar" class="avatar">
       </div>
 
-      <h4  class="center">Welcome Back, User!</h4>
+      <h5  class="center">Welcome Back, User!</h5>
 
       <form action="/login" method="post">
 
@@ -90,9 +93,10 @@ img.avatar {
 
         <button type="submit" class="button button-block #1565c0 blue darken-3"><i class="material-icons left"></i>Login</button> 
 
-        <button a href="/" style="margin-top:1% ;" class="button button-block">  Go Back </button>
-
+        <a href="/" type="button"   style="margin-top:1% ;" class="button button-block">  Go Back </a>
       </form>
+
+      
 
     </div>
   
