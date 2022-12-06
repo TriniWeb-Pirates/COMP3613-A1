@@ -15,14 +15,11 @@
             <h2>List Of Highest Rated Users</h2>
             <p>Click User To See Their Highest Ranked Images</p>
           </div>
-          {% for top_profile in result %}
-          <div class="col s12 m3">
-            <div class = "wrapper">
-              <div class="card-content white-text">
-            {{top_profile}}
-              </div>
-            </div>
-          </div>
+          <div = class="">
+          {% for x in range(3) %}
+            {{profile_list[x]}}
+            {{rating_list[x]}}
+            {{best_image[x]}}
           {% endfor %}
         </div>
       </form>
