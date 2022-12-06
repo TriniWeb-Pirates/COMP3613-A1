@@ -8,38 +8,34 @@
       <div id="imageListing">    
         <div id="view_images"> 
           <div style="text-align:center">
-            <h2>Tabbed Image Gallery</h2>
-            <p>Click on the images below:</p>
+            <h2>Image Gallery</h2>
           </div>
           
           <!-- to place jinja2 for loop -->
-          <section class = "row">
+          <section class = "row ">
             {% for image in images %}
 
-              <div class="col s12 m3">
+              <div class="col s8 offset-s2">
                 <div class = "wrapper">
                   <div class="card medium grey">
                     <div class = "info">
-                      <p>Ranking: </p>{{ image.rankings }}
                       {% set url = image.url | string() %}
 
-                       <img src="{{url}}">
+                       <img src="{{url}}" class="responsive-img" >
                   </div>
                   <form action="/deleteImage/{{image.id}}" method="post">
-                     <button type="submit" value="{{image.id}}" class="button button-block #1565c0 blue darken-3">delete</button> 
+                     <button type="submit" value="{{image.id}}" class="waves-effect waves-light btn">Delete Image</button> 
                   </form>
                 </div>
                 </div>
               </div>
             {% endfor %}
-          </section>      
-
-          <div class="container">
-            <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
-            <img id="expandedImg" style="width:100%">
-            <div id="imgtext"></div>
-          </div>
+            
+          </section> 
         </div>
+        <div class = "center"> 
+        <a href="/viewprofiles" style="margin-top: 2%; width:20% " class="#388e3c green darken-2 waves-effect waves-light btn"><i class="material-icons left">arrow_back</i>Return to Feed</a>      
       </div>
+    </div> 
       
     {% endblock %}
