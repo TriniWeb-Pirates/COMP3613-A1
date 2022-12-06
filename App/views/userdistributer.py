@@ -1,5 +1,5 @@
 from flask_jwt import jwt_required, current_identity
-from flask import Blueprint, render_template, jsonify, request, send_from_directory
+from flask import Blueprint, render_template, jsonify, request, send_from_directory, flash
 from flask_login import login_required, current_user
 
 from App.controllers import (
@@ -59,7 +59,7 @@ def get_top_rated_view():
 @distributer_views.route('/get_top_profiles',methods=['GET'])
 def get_highest():
     result = get_top_profiles()
-
+    flash('There are not enough profiles')
     profile_list = []
     rating_list = []
 
