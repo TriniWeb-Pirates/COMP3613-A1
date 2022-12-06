@@ -75,7 +75,7 @@ def get_highest():
             best_images.append(images[:1][0])
             
         else:
-            best_images.append(f"user {profile} has no images!")
+            best_images.append(f"No Images")
     #use three lists above as data in template
     return render_template('highest_rated_profile.html',profile_list=profile_list, rating_list=rating_list, best_image=best_images)
     #return jsonify(profile_list)

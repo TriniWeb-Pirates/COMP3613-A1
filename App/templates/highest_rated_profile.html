@@ -1,26 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
+{% extends "layout.html" %}  
+{% block title %}Profile Picture Voting{% endblock %}
+{% block page %}Profile Picture Voting{% endblock %}
+{{ super() }}
 
-  </style>
-      
-</head>
-  <body>  
+
+    {% block content %}
     <div id="get_top_profiles ">
         <div id="get_top_profiles">
           <div style="text-align:center">
             <h2>List Of Highest Rated Users</h2>
-            <p>Click User To See Their Highest Ranked Images</p>
-          </div>
-          <div = class="">
+          </div> 
           {% for x in range(3) %}
-            {{profile_list[x]}}
-            {{rating_list[x]}}
-            {{best_image[x]}}
-          {% endfor %}
+          <div class="row center">
+            <div class="col s8 offset-s2">
+              <div class="card">
+                <div class="card-image">
+                   
+                {% if best_image[x] != "No Images" %}
+                   <img src="{{image[x].url}}">
+               {% endif %}
+                </div>
+                <div class="card-content">
+                </div>
+                        <div class="card-content">
+                    <h4>User Profile: {{profile_list[x]}}</h4>
+                    <h4>User Rating: {{rating_list[x]}}</h4>
+                    <h4>User images: {{best_image[x]}}</h4>
+                </div>               
+                <div class="card-action">
+                </div>
+              </div>              
+            </div>
+          </div>  
+          {% endfor %}       
         </div>
     </div>
-  </body>    
-</html>
+    {% endblock %}
