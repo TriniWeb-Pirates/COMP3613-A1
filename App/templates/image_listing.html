@@ -17,16 +17,17 @@
 
               <div class="col s8 offset-s2">
                 <div class = "wrapper">
-                  <div class="card medium grey">
+
                     <div class = "info">
                       {% set url = image.url | string() %}
 
                        <img src="{{url}}" class="responsive-img" >
                   </div>
                   <form action="/deleteImage/{{image.id}}" method="post">
+                    <div class="right">
                      <button type="submit" value="{{image.id}}" class="waves-effect waves-light btn">Delete Image</button> 
-                  </form>
-                </div>
+                    </div>
+                    </form>
                 </div>
               </div>
             {% endfor %}

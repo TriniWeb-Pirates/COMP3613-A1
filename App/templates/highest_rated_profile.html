@@ -10,6 +10,7 @@
           <div style="text-align:center">
             <h2>List Of Highest Rated Users</h2>
           </div> 
+          {% if profile_list %}
           {% for x in range(3) %}
           <div class="row center">
             <div class="col s8 offset-s2">
@@ -22,7 +23,7 @@
                 </div>
                 <div class="card-content">
                 </div>
-                        <div class="card-content">
+                        <div class="card-content">     
                     <h4>User Profile: {{profile_list[x]}}</h4>
                     <h4>User Rating: {{rating_list[x]}}</h4>
                     <h4>User images: {{best_image[x]}}</h4>
@@ -38,4 +39,7 @@
           <a href="/viewprofiles" style="margin-top: 2%; width:20% " class="#388e3c green darken-2 waves-effect waves-light btn"><i class="material-icons left">arrow_back</i>Return to Feed</a>      
         </div>
     </div>
+    {% else %}
+      <h4>Not enough users</h4>
+    {% endif %}
     {% endblock %}
