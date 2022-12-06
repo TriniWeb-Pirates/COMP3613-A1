@@ -5,6 +5,7 @@ import random, datetime
 
 
 viewing_size = 5 #size of each user's feed
+update_interval = 8600
 
 def create_user_distributer(num_profiles):
     new_distributer = UserDistributer(num_profiles)
@@ -29,7 +30,7 @@ def checkRecency():
         
         time_delta = datetime.datetime.now() - last_request
         
-        if time_delta.total_seconds() < 8600:
+        if time_delta.total_seconds() < update_interval:
             return 0
     
     return 1
@@ -78,7 +79,7 @@ def generateProfileList():
         
         time_delta = datetime.datetime.now() - last_request
         
-        if time_delta.total_seconds() < 8600:
+        if time_delta.total_seconds() < update_interval:
             return 1
     
     new_distribution = create_user_distributer(len(profiles))
@@ -105,7 +106,12 @@ def generateProfileList():
             # add old unviewed profiles to new feed
             if feed['seen'] == False:
                 profiles_neeeded -= 1
-                potential_profiles.pop(int(feed['senderID'] - 1 )) # removes seen profiles from feed
+                for i in potential_profiles:
+                    if i['id'] == feed['senderID']:
+                        potential_profiles.remove(i)
+                        break
+                # print(potential_profiles)
+                # potential_profiles.pop(int( - 1 )) # removes seen profiles from feed
 
 
         # get new users to fill feed
@@ -123,6 +129,3 @@ def generateProfileList():
             profilefeed.commit_feed(feed)
 
     return("complete")
-
-
-

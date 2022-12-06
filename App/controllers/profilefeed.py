@@ -1,4 +1,4 @@
-from App.models import ProfileFeed
+from App.models import ProfileFeed, UserDistributer
 from App.controllers import userdistributer
 from App.database import db
 
@@ -14,11 +14,14 @@ def commit_feed(profile_feed):
     return profile_feed
 
 def getFeed(userID):
-    
-    user_feed =  ProfileFeed.query.filter_by(recieverID=userID)
+
+    last_distributer = UserDistributer.query.all()[-1]
+
+    user_feed =  ProfileFeed.query.filter_by(recieverID=userID, distributerID = last_distributer.id)
 
     user_feed = [feed.toJSON() for feed in user_feed]
-        
+
+
     return user_feed
 
 def view_feed(userID, targetID):
