@@ -59,7 +59,7 @@ def get_top_rated_view():
 @distributer_views.route('/get_top_profiles',methods=['GET'])
 def get_highest():
     result = get_top_profiles()
-    flash('There are not enough profiles')
+    flash('There must be at least 3 existing profiles to view the top rated profiles')
     profile_list = []
     rating_list = []
 
