@@ -51,6 +51,10 @@ def getImageList():
 def viewMyImages():
     rankings, images = get_sorted_images(current_user.id)
 
+    if images is None:
+        flash('You have no images!')
+        return redirect(url_for('distributer_views.view_profiles_again'))
+
     # images = get_images_by_userid(current_user.id)
     images = [image.toJSON() for image in images]
 
