@@ -37,19 +37,24 @@ def add_image():
     flash('You already uploaded this picture')
     return redirect(url_for('image_views.image_page'))
 
+
 #route for listing all images
 @image_views.route('/imageListing', methods=['GET'])
 def getImageList():
     images = get_all_images()
     return render_template('image_listing.html', images=images)
 
+
 #route for providing a list of a user images
 @image_views.route('/viewUserImages', methods=['GET'])
 @login_required
 def viewMyImages():
-    images = get_images_by_userid(current_user.id)
+    rankings, images = get_sorted_images(current_user.id)
+
+    # images = get_images_by_userid(current_user.id)
     images = [image.toJSON() for image in images]
-    return render_template('image_listing.html', images=images)
+
+    return render_template('image_listing.html', images=images, rankings=rankings, count = len(images))
 
 #route for removing an image
 @image_views.route('/deleteImage/<imageID>', methods=['POST'])

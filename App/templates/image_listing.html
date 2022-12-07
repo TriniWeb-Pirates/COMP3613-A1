@@ -13,20 +13,26 @@
           
           <!-- to place jinja2 for loop -->
           <section class = "row ">
-            {% for image in images %}
 
-              <div class="col s8 offset-s2">
+            {% for x in range(count) %}
+
+              <div >
                 <div class = "wrapper">
+                    {% set ranking = rankings[x] %}
+                    <div >IMAGE RANK:{{ranking}}</div>
 
+
+                    </div>
                     <div class = "info">
-                      {% set url = image.url | string() %}
+                      {% set url = images[x].url | string() %}
 
                        <img src="{{url}}" class="responsive-img" >
                   </div>
-                  <form action="/deleteImage/{{image.id}}" method="post">
-                    <div class="right" style="margin-bottom:3%">
-                     <button type="submit" value="{{image.id}}" class="waves-effect waves-light btn">Delete Image</button> 
-                    </div> 
+
+                  <form action="/deleteImage/{{images[x].id}}" method="post">
+                    <div style="margin-bottom:3%">
+                     <button type="submit" value="{{images[x].id}}" class="waves-effect waves-light btn">Delete Image</button>
+                    </div>
                     </form>
                 </div>
               </div>

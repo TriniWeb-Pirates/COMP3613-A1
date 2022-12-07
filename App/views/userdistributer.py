@@ -1,5 +1,5 @@
 from flask_jwt import jwt_required, current_identity
-from flask import Blueprint, render_template, jsonify, request, send_from_directory, flash
+from flask import Blueprint, render_template, jsonify, request, send_from_directory, flash, redirect, url_for
 from flask_login import login_required, current_user
 
 from App.controllers import (
@@ -19,18 +19,6 @@ distributer_views = Blueprint('distributer_views', __name__, template_folder='..
 def generate_profile_feeds():
     result = generateProfileList()
     return jsonify(result)
-
-@distributer_views.route('/createdis',methods=['GET'])
-@jwt_required()
-def create_new_distributer():
-    new_dis = create_user_distributer(current_identity.id)
-    return jsonify({"message":"Distributer created"})
-
-@distributer_views.route('/gendis',methods=['GET'])
-@jwt_required()
-def gendis():
-    chosen_users = generateProfileList(current_identity.id)
-    return jsonify(chosen_users)
 
 
 @distributer_views.route('/api/gettopprofiles',methods=['GET'])
@@ -56,10 +44,15 @@ def get_top_rated_view():
     
     return jsonify(result)
 
+
 @distributer_views.route('/get_top_profiles',methods=['GET'])
 def get_highest():
     result = get_top_profiles()
-    flash('There are not enough profiles')
+
+    if result is None or len(result) < 3:
+        flash('There are not enough profiles')
+        return redirect(url_for('distributer_views.view_profiles_again'))
+
     profile_list = []
     rating_list = []
 
@@ -73,7 +66,7 @@ def get_highest():
         rankings, images  = get_sorted_images(profile)
         if images != None:
             best_images.append(images[:1][0])
-            
+
         else:
             best_images.append(f"No Images")
     #use three lists above as data in template
