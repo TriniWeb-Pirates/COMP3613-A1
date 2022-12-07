@@ -16,13 +16,13 @@
 
             {% for x in range(count) %}
 
-              <div >
+              <div class="col s8 offset-s2">
                 <div class = "wrapper">
                     {% set ranking = rankings[x] %}
-                    <div >IMAGE RANK:{{ranking}}</div>
+                    <h6 >IMAGE RANK:{{ranking}}</h6>
 
 
-                    </div>
+                    
                     <div class = "info">
                       {% set url = images[x].url | string() %}
 
@@ -30,7 +30,7 @@
                   </div>
 
                   <form action="/deleteImage/{{images[x].id}}" method="post">
-                    <div style="margin-bottom:3%">
+                    <div class="right" style="margin-bottom:3%">
                      <button type="submit" value="{{images[x].id}}" class="waves-effect waves-light btn">Delete Image</button>
                     </div>
                     </form>
@@ -40,8 +40,8 @@
             
           </section> 
         </div>
-        <div class = "center"> 
-        <a href="/viewprofiles" style="margin-top: 2%; width:20% " class="#388e3c green darken-2 waves-effect waves-light btn"><i class="material-icons left">arrow_back</i>Return to Feed</a>      
+        <div class="center"> 
+        <a href="/viewprofiles" style="margin-top: 1%; width:20% " class="#388e3c green darken-2 waves-effect waves-light btn"><i class="material-icons left">arrow_back</i>Return to Feed</a>      
       </div>
     </div> 
       
